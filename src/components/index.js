@@ -1,6 +1,4 @@
 //Section Components
-export { default as Navbar } from './section/Navbar'
-export { default as Footer } from './section/Footer'
-
+export { default as Header } from './Header/Header'
 
 //UI Components

@@ -1,8 +1,14 @@
-import React from 'react'
+import React from 'react';
+
+//Components Import
+import { Header } from '../components';
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <>
+    {/* <Header headerClass="dark" /> */}
+    <h1>Home Page</h1>
+    </>
   )
 }
 

@@ -1,1 +1,0 @@
-export { default as HeroBg } from './images/bg.jpg';

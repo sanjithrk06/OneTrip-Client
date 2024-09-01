@@ -1,14 +1,15 @@
-import React from 'react'
+// React router component
 import { Outlet } from 'react-router-dom'
 
-import { Header } from '../components';
+// Layout Components import
+import { Footer, Header } from '../components'
 
 const HomeLayout = () => {
   return (
     <>
-    <Header />
-    <Outlet />
-    <div>Footer</div>
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   )
 }

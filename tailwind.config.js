@@ -1,14 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
- 
-module.exports = withMT({
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "path-to-your-node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
-    "path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}"
-  ],
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: 'hsl(26, 93%, 50%)',         // --PrimaryColor
+        hover: 'hsl(26, 90%, 42%)',           // --HoverColor
+        white: 'hsl(0, 0%, 100%)',            // --whiteColor
+        black: 'hsl(0, 0%, 18%)',             // --blackColor
+        text: 'hsl(240, 1%, 48%)',            // --textColor
+        whiteDim: 'hsl(0, 0%, 93%)',          // --whiteColorDeam
+        greyBg: 'hsl(0, 0%, 96%)',            // --greyBg
+        greyText: 'rgb(190, 190, 190)',       // --greyText
+        input: 'hsl(330, 12%, 97%)',          // --inputColor
+        bgColor: '#EE701E'
+      },
+    },
   },
   plugins: [],
-});
+};

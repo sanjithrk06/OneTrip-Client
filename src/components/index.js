@@ -1,3 +1,3 @@
-
-//Header Components
-export { default as Header } from './Header/Header';
+export { default as Header } from './layout/Header';
+export { default as Footer } from './layout/Footer';
+export { default as Hero } from './section/Hero';

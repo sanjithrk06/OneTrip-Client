@@ -12,12 +12,12 @@ const destinations = [
 ;
 
 const DestinationCard = ({ image, destTitle, location }) => (
-  <div className="bg-white shadow-2xl rounded-lg overflow-hidden w-full sm:w-72 relative">
+  <div className="bg-white shadow-2xl shadow-gray-600  rounded-3xl overflow-hidden w-full sm:w-72 relative">
     <div className="relative group">
       <img src={image} alt={destTitle} className="w-full h-48 object-cover transition-transform duration-1000 ease-in-out " />
       {/* Overlay that appears on hover */}
       {/* <div className="absolute inset-0 bg-gray-800 bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 flex justify-center items-center"> */}
-      <div className="absolute inset-0 bg-gray-800 bg-opacity-50 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-40 duration-1000 flex justify-center items-center">
+      <div className="absolute inset-0 bg-gray-800 bg-opacity-60 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-40 duration-1000 flex justify-center items-center">
 
         <p className="text-white text-lg font-semibold">{location}</p>
       </div>
@@ -36,13 +36,13 @@ const DestinationCard = ({ image, destTitle, location }) => (
 const KindsOfDestinations = () => (
   <div className="container mx-auto px-4 py-8 bg-white">
     <div className="text-left pl-5 mb-8 ">
-        <h2 className="text-3xl font-bold text-black">Kinds Of Destinations</h2>
+        <h2 className="text-3xl font-bold text-black" data-aos = "fade-right" daya-aos-duration = "2000">Kinds Of Destinations</h2>
         <p className="text-gray-600" data-aos="fade-right" data-aos-duration="2500">
             From historical cities to natural spectacles, come see the best of the world!
         </p>
     </div>
     
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="pl-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 content-center"  data-aos="fade-up" data-aos-duration="2500">
           {destinations.map(({ id, imgSrc, destTitle, location, tag }) => (
             <DestinationCard key={id} image={imgSrc} destTitle={destTitle} location={location} />
 

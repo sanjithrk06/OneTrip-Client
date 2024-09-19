@@ -3,14 +3,17 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 
 // Components import
 import { HomeLayout } from "../layouts";
-import { HomePage, TestPage } from "../pages";
+import { Famous, HomePage, TestPage } from "../pages";
 
 const Router = createBrowserRouter(
     createRoutesFromElements(
       <>
       <Route path="/" element={<HomeLayout />} >
         <Route path="" element={<HomePage />} />
-        <Route path="test" element={<TestPage />} />
+        <Route path="test/">
+          <Route path="" element={<TestPage />} />
+          <Route path="famous" element={<Famous />} />
+        </Route>
       </Route>
       </>
     )

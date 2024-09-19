@@ -5,9 +5,6 @@ import { useEffect } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-// Hero Section Bg
-import { HeroBg } from '../../assets';
-
 const Hero = ({ header, desc, img }) => {
 
   useEffect(() => {

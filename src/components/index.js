@@ -8,4 +8,4 @@ export { default as KindOfDestination } from './section/kindOfDestination';
 
 // General Components
 export { default as GHero } from './general/Hero';
-export { default as Cards } from './general/Cards'
+export { default as Card } from './general/Cards'

@@ -5,17 +5,14 @@ import { useEffect } from 'react';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-// Hero Section Bg
-import { HeroBg } from '../../assets';
-
-const Hero = () => {
+const Hero = ({img}) => {
 
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
 
   return (
-    <section className="h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center relative" style={{ backgroundImage: `linear-gradient(rgba(33, 33, 33, 0.658), rgba(33, 33, 33, 0.61)), url('${HeroBg}')` }}>
+    <section className="h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center relative" style={{ backgroundImage: `linear-gradient(rgba(33, 33, 33, 0.658), rgba(33, 33, 33, 0.61)), url('${img}')` }}>
       <div className="container mx-auto text-center">
 
         <div className="mb-8">

@@ -16,7 +16,6 @@ const TestPage = () => {
     <>
     <GHero header={"Destinations"} desc={"test description"} img={munnar} />
     <KindOfDestination destinations={destinations} title={"Kinds Of Destinations"} subTitle ={"From historical cities to natural spectacles, come see the best of the world!"}  />
-    <div className=' h-screen pt-20'>TestPage</div>
     </>
   )
 }

@@ -1,5 +1,5 @@
 // React Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Router Components
 import { Link } from "react-router-dom";
@@ -13,28 +13,48 @@ import { navItems } from "../../constants";
 
 const Header = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
   return (
-    <nav className="fixed top-0 w-full z-50 py-3 backdrop-blur-lg bg-transparent">
+    <nav
+      className={`fixed top-0 w-full z-50 py-3  ${
+        isScrolled ? 'bg-gray-200/50 backdrop-blur-3xl' : ''
+      } transition-all duration-300`}
+    >
       <div className="container py-1 px-4 mx-auto relative lg:text-sm">
         <div className="flex justify-between items-center px-6">
           <div className="flex items-center flex-shrink-0">
             {/* <img className="h-10 w-10 mr-2" src={logo} alt="Logo" /> */}
-            <span className="text-xl tracking-tight">One Trip</span>
+            <span className={`text-2xl font-bold tracking-tight ${isScrolled ? `text-primary` : ``}`}>One Trip</span>
           </div>
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
-              <li key={index}>
+              <li key={index} className={` font-normal ${isScrolled ? `text-primary` : ``}`}>
                 <Link to={item.to}>{item.label}</Link>
               </li>
             ))}
           </ul>
           <div className="hidden lg:flex justify-center space-x-4 items-center">
-            <a href="#" className="py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full">
+            <a href="#" className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${isScrolled ? `text-primary` : ``}`}>
               Sign In
             </a>
             <a

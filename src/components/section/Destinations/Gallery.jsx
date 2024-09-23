@@ -26,7 +26,7 @@ const Gallery = ({ images }) => {
         {/* Images Section */}
         <div className="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-6 mt-8">
           {images.map((imgSrc, index) => (
-            <div key={index} className="overflow-hidden rounded-xl shadow-lg">
+            <div key={index} className="overflow-hidden w-58 h-54 rounded-xl shadow-lg">
               <img className="w-full h-full" src={imgSrc} alt={`Gallery image ${index + 1}`} />
             </div>
           ))}

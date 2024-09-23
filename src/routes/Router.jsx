@@ -3,7 +3,7 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 
 // Components import
 import { HomeLayout } from "../layouts";
-import { HomePage, KindsOfDest, ListOfDest } from "../pages";
+import { Destination, HomePage, KindsOfDest, ListOfDest } from "../pages";
 
 const Router = createBrowserRouter(
     createRoutesFromElements(
@@ -14,6 +14,7 @@ const Router = createBrowserRouter(
         <Route path="destinations/">
           <Route path=""  element={<KindsOfDest />} />
           <Route path=":category" element={<ListOfDest />} />
+          <Route path="taj" element={<Destination />} />
         </Route>
       </Route>
       </>

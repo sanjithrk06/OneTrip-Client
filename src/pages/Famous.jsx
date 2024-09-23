@@ -18,7 +18,6 @@ const Famous = () => {
     <>
       <GHero header={"Famous Destinations"} desc={"Travel to your favourite city with respectful of the environment!"} img={Baga} />
       <KindOfDestination destinations={destinations} title={"Famous Destinations"} />
-
     </>
   )
 }

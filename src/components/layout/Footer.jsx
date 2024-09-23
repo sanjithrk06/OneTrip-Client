@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 
 // Footer Links List
-import { footerInformation } from '../../constants';
+import { footerInformation } from '../../constants/constant';
 
 // Icons
 import { ImFacebook } from 'react-icons/im';

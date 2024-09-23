@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 // Nav Links List
-import { navItems } from "../../constants";
+import { navItems } from "../../constants/constant";
 
 
 const Header = () => {

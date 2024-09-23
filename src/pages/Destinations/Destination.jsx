@@ -1,7 +1,7 @@
 import { About, DestHero, Gallery, KindOfDestination, Stay } from "../../components"
 import { Baga, Charminar, GOI, h1, h2, h3, Ladak, munnar, Mysuru, redFort, taj1, taj2, taj3, taj4, taj5, tajMahal } from "../../assets"
 
-const TajMahal = () => {
+const Destination = () => {
   const hotels = [
     {
       name: "Hotel Moti Palace",
@@ -59,6 +59,7 @@ The interior of the Taj Mahal is equally stunning, with intricate carvings and i
 
 The Taj Mahal is considered a masterpiece of Mughal architecture and is visited by millions of tourists every year. It is a symbol of love and devotion and remains one of the most popular landmarks of India.
   `;
+
   const destinations =[
     { title: 'Taj Mahal', imgSrc: tajMahal, alt: 'Agra', location: 'Agra', route: '/test/famous/taj-mahal' },
     { title: 'Red Fort', imgSrc: redFort, alt: 'Delhi', location: 'Delhi', route: '/test/famous/taj-mahal' },
@@ -81,4 +82,4 @@ The Taj Mahal is considered a masterpiece of Mughal architecture and is visited 
   )
 }
 
-export default TajMahal
+export default Destination;

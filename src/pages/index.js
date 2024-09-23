@@ -1,6 +1,7 @@
+// Home Page
 export { default as HomePage } from './HomePage';
-export { default as TestPage } from './TestPage';
-export {default as Famous} from './Famous'
 
-// Famous Destination pages
-export {default as Tajmahal} from './Famous-Destinations/TajMahal'
+// Destinations
+export { default as KindsOfDest } from './KindsOfDest';
+export { default as ListOfDest } from './Destinations/ListOfDest';
+// export { default as Destination } from './Destinations/Destination';

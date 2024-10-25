@@ -8,7 +8,6 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import { useEffect } from 'react';
 
-
 const Stay = ({ hotels }) => {
     useEffect(() => {
         AOS.init({ duration: 2000 });

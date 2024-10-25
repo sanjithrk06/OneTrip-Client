@@ -1,6 +1,11 @@
-export { default as HomePage } from './HomePage';
-export { default as TestPage } from './TestPage';
-export {default as Famous} from './Famous'
+// Authentication
+export { default as Login } from "./AuthPages/Login";
+export { default as Signup } from "./AuthPages/Signup";
 
-// Famous Destination pages
-export {default as Tajmahal} from './Famous-Destinations/TajMahal'
+// Home Page
+export { default as HomePage } from "./HomePage";
+
+// Destinations
+export { default as KindsOfDest } from "./KindsOfDest";
+export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
+export { default as Destination } from "./DestinationsPages/Destination";

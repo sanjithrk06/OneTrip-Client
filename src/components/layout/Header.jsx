@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 // Nav Links List
-import { navItems } from "../../constants";
-
+import { navItems } from "../../constants/constant";
 
 const Header = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -24,9 +23,9 @@ const Header = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -37,32 +36,46 @@ const Header = () => {
   return (
     <nav
       className={`fixed top-0 w-full z-50 py-3  ${
-        isScrolled ? 'bg-gray-200/50 backdrop-blur-3xl' : ''
+        isScrolled ? "bg-gray-200/50 backdrop-blur-3xl" : ""
       } transition-all duration-300`}
     >
       <div className="container py-1 px-4 mx-auto relative lg:text-sm">
         <div className="flex justify-between items-center px-6">
           <div className="flex items-center flex-shrink-0">
             {/* <img className="h-10 w-10 mr-2" src={logo} alt="Logo" /> */}
-            <span className={`text-2xl font-bold tracking-tight ${isScrolled ? `text-primary` : ``}`}>One Trip</span>
+            <span
+              className={`text-2xl font-bold tracking-tight ${
+                isScrolled ? `text-primary` : ``
+              }`}
+            >
+              One Trip
+            </span>
           </div>
           <ul className="hidden lg:flex ml-14 space-x-12">
             {navItems.map((item, index) => (
-              <li key={index} className={` font-normal ${isScrolled ? `text-primary` : ``}`}>
+              <li
+                key={index}
+                className={` font-normal ${isScrolled ? `text-primary` : ``}`}
+              >
                 <Link to={item.to}>{item.label}</Link>
               </li>
             ))}
           </ul>
           <div className="hidden lg:flex justify-center space-x-4 items-center">
-            <a href="#" className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${isScrolled ? `text-primary` : ``}`}>
-              Sign In
-            </a>
-            <a
-              href="#"
+            <Link
+              to={"login"}
+              className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${
+                isScrolled ? `text-primary` : ``
+              }`}
+            >
+              Login In
+            </Link>
+            <Link
+              to={"signup"}
               className="bg-primary/45 hover:bg-hover py-2 px-3 rounded-full"
             >
               Register
-            </a>
+            </Link>
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -80,15 +93,15 @@ const Header = () => {
               ))}
             </ul>
             <div className="flex space-x-6">
-              <a href="#" className="py-2 px-3 border rounded-md">
-                Sign In
-              </a>
-              <a
-                href="#"
+              <Link to={"login"} className="py-2 px-3 border rounded-md">
+                Login In
+              </Link>
+              <Link
+                to={"signup"}
                 className="py-2 px-3 rounded-md bg-gradient-to-r from-orange-500 to-orange-800"
               >
                 Create an account
-              </a>
+              </Link>
             </div>
           </div>
         )}

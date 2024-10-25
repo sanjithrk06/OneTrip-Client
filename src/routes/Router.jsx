@@ -1,30 +1,37 @@
 // React Router Components import
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 
 // Components import
 import { HomeLayout } from "../layouts";
-import { Famous, HomePage, TestPage } from "../pages";
-
-// Famous Destination Componenets import
-import { Tajmahal } from "../pages";
+import {
+  Destination,
+  HomePage,
+  KindsOfDest,
+  ListOfDest,
+  Login,
+  Signup,
+} from "../pages";
 
 const Router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-      <Route path="/" element={<HomeLayout />} >
+  createRoutesFromElements(
+    <>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={<HomeLayout />}>
         <Route path="" element={<HomePage />} />
-        {/* Test Path */}
-        <Route path="test/">
-          <Route path="" element={<TestPage />} />
-          {/*Famous Destinations Path */}
-          <Route path="famous/" >
-            <Route path="" element={<Famous />} />
-            <Route path="taj-mahal" element={<Tajmahal />} />
-          </Route>
+        {/* Destinations Path */}
+        <Route path="destinations/">
+          <Route path="" element={<KindsOfDest />} />
+          <Route path=":category" element={<ListOfDest />} />
+          <Route path="taj" element={<Destination />} />
         </Route>
       </Route>
-      </>
-    )
+    </>
+  )
 );
 
 export default Router;

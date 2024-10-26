@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 // OAuth
 
 // Auth Store
-import { useAuthStore } from "../../store/authStore";
+import { useAuthStore } from "./../../store/authStore";
 
 // Regex
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -69,7 +69,7 @@ const Signup = () => {
 
       try {
         await signup(email, password, name);
-        navigate("/verify-email");
+        navigate("/auth/verify-email");
       } catch (error) {
         console.log(error);
       }

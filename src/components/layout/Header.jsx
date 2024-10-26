@@ -9,10 +9,13 @@ import { Menu, X } from "lucide-react";
 
 // Nav Links List
 import { navItems } from "../../constants/constant";
+import { useAuthStore } from "../../store/authStore";
 
 const Header = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  const { user, logout, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +34,10 @@ const Header = () => {
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -62,20 +69,36 @@ const Header = () => {
             ))}
           </ul>
           <div className="hidden lg:flex justify-center space-x-4 items-center">
-            <Link
-              to={"login"}
-              className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${
-                isScrolled ? `text-primary` : ``
-              }`}
-            >
-              Login In
-            </Link>
-            <Link
-              to={"signup"}
-              className="bg-primary/45 hover:bg-hover py-2 px-3 rounded-full"
-            >
-              Register
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <h4>Welcome, {user.name}</h4>
+                <Link
+                  onClick={handleLogout}
+                  className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${
+                    isScrolled ? `text-primary` : ``
+                  }`}
+                >
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to={"auth/login"}
+                  className={`py-2 px-3 border border-primary/45 hover:border-primary hover:bg-hover/35 rounded-full ${
+                    isScrolled ? `text-primary` : ``
+                  }`}
+                >
+                  Login In
+                </Link>
+                <Link
+                  to={"auth/signup"}
+                  className="bg-primary/45 hover:bg-hover py-2 px-3 rounded-full"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -93,11 +116,11 @@ const Header = () => {
               ))}
             </ul>
             <div className="flex space-x-6">
-              <Link to={"login"} className="py-2 px-3 border rounded-md">
+              <Link to={"auth/login"} className="py-2 px-3 border rounded-md">
                 Login In
               </Link>
               <Link
-                to={"signup"}
+                to={"auth/signup"}
                 className="py-2 px-3 rounded-md bg-gradient-to-r from-orange-500 to-orange-800"
               >
                 Create an account

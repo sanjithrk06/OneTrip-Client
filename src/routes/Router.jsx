@@ -5,10 +5,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { HomeLayout } from "../layouts";
+import { DashLayout, HomeLayout } from "../layouts";
 import {
   Destination,
   HomePage,
+  ADashboard,
   KindsOfDest,
   ListOfDest,
   Login,
@@ -16,6 +17,7 @@ import {
   VerifyEmail,
   ForgotPassword,
   ResetPassword,
+  ADestinations,
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
 
@@ -92,6 +94,11 @@ const router = createBrowserRouter(
           <Route path=":category" element={<ListOfDest />} />
           <Route path="taj" element={<Destination />} />
         </Route>
+      </Route>
+
+      <Route path="/dashboard/" element={<DashLayout />}>
+        <Route path="" element={<ADashboard />} />
+        <Route path="destinations" element={<ADestinations />} />
       </Route>
     </>
   )

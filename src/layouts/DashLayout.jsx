@@ -1,99 +1,14 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
-  AppstoreOutlined,
-  HomeOutlined,
-  SettingOutlined,
   UserOutlined,
-  FileTextOutlined,
-  TeamOutlined,
-  EnvironmentOutlined,
   SearchOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Avatar, Space, Row, Col, Input } from "antd";
+import { adminNav as items } from "../constants/constant";
 
 const { Header, Content, Footer, Sider } = Layout;
-
-// Define menu items with routes
-const items = [
-  {
-    key: "dashboard",
-    label: "Dashboard",
-    icon: <HomeOutlined />,
-    path: "/dashboard",
-  },
-  {
-    key: "places",
-    label: "Destinations",
-    icon: <EnvironmentOutlined />,
-    children: [
-      {
-        key: "destinations",
-        label: "Destination",
-        path: "/dashboard/destinations",
-      },
-    ],
-  },
-  {
-    key: "management",
-    label: "Management",
-    icon: <AppstoreOutlined />,
-    children: [
-      {
-        key: "users",
-        label: "Users",
-        icon: <UserOutlined />,
-        path: "/dashboard/users",
-      },
-      {
-        key: "teams",
-        label: "Teams",
-        icon: <TeamOutlined />,
-        path: "/dashboard/teams",
-      },
-      {
-        key: "reports",
-        label: "Reports",
-        icon: <FileTextOutlined />,
-        children: [
-          {
-            key: "daily",
-            label: "Daily Reports",
-            path: "/dashboard/reports/daily",
-          },
-          {
-            key: "weekly",
-            label: "Weekly Reports",
-            path: "/dashboard/reports/weekly",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    key: "settings",
-    label: "Settings",
-    icon: <SettingOutlined />,
-    children: [
-      {
-        key: "profile",
-        label: "Profile Settings",
-        path: "/dashboard/settings/profile",
-      },
-      {
-        key: "security",
-        label: "Security",
-        path: "/dashboard/settings/security",
-      },
-      {
-        key: "preferences",
-        label: "Preferences",
-        path: "/dashboard/settings/preferences",
-      },
-    ],
-  },
-];
 
 // Flatten menu items to easily find paths
 const flattenMenuItems = (items) => {

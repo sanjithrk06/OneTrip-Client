@@ -1,98 +1,176 @@
 import React, { useState } from "react";
-import { DownOutlined } from "@ant-design/icons";
-import { Space, Table } from "antd";
+import {
+  PlusOutlined,
+  EyeOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
+import { Button, Input, Space, Table, Typography, Modal } from "antd";
+import { useNavigate } from "react-router-dom";
 
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-  },
-  {
-    title: "Age",
-    dataIndex: "age",
-    sorter: (a, b) => a.age - b.age,
-  },
-  {
-    title: "Address",
-    dataIndex: "address",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    onFilter: (value, record) => record.address.indexOf(value) === 0,
-  },
-  {
-    title: "Action",
-    key: "action",
-    sorter: true,
-    render: () => (
-      <Space size="middle">
-        <a>Delete</a>
-        <a>
-          <Space>
-            More actions
-            <DownOutlined />
-          </Space>
-        </a>
-      </Space>
-    ),
-  },
-];
+const { Title } = Typography;
 
-const data = Array.from({
-  length: 10,
-}).map((_, i) => ({
+const initialData = Array.from({ length: 10 }).map((_, i) => ({
   key: i,
-  name: "John Brown",
-  age: Number(`${i}2`),
-  address: `New York No. ${i} Lake Park`,
-  description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+  id: `DEST${i + 1}`,
+  name: `Destination Name ${i + 1}`,
+  photo:
+    "https://assets.editorial.aetnd.com/uploads/2011/06/taj-mahal-gettyimages-463924915.jpg",
 }));
 
 const Destinations = () => {
-  const [hasData, setHasData] = useState(true);
-  const [top, setTop] = useState("none");
-  const [bottom, setBottom] = useState("bottomRight");
-  const [ellipsis, setEllipsis] = useState(false);
-  const [yScroll, setYScroll] = useState(false);
-  const [xScroll, setXScroll] = useState();
+  const [data, setData] = useState(initialData);
+  const [filteredData, setFilteredData] = useState(initialData);
+  const [pageSize, setPageSize] = useState(5);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const navigate = useNavigate();
 
-  const scroll = {};
-  if (yScroll) {
-    scroll.y = 240;
-  }
-  if (xScroll) {
-    scroll.x = "100vw";
-  }
-  const tableColumns = columns.map((item) => ({
-    ...item,
-    ellipsis,
-  }));
-  if (xScroll === "fixed") {
-    tableColumns[0].fixed = true;
-    tableColumns[tableColumns.length - 1].fixed = "right";
-  }
+  const columns = [
+    {
+      title: "Destination ID",
+      dataIndex: "id",
+      sorter: (a, b) => a.id.localeCompare(b.id),
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
+    },
+    {
+      title: "Photo",
+      dataIndex: "photo",
+      render: (photo) => (
+        <img src={photo} alt="destination" style={{ width: 50, height: 50 }} />
+      ),
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (text, record) => (
+        <Space size="middle">
+          <Button icon={<EyeOutlined />} onClick={() => handleView(record)} />
+          <Button icon={<EditOutlined />} onClick={() => handleEdit(record)} />
+          <Button
+            icon={<DeleteOutlined />}
+            danger
+            onClick={() => handleDelete(record)}
+          />
+        </Space>
+      ),
+    },
+  ];
+
+  const handleSearch = (event) => {
+    const value = event.target.value.toLowerCase();
+    const filteredResults = data.filter((item) =>
+      item.name.toLowerCase().includes(value)
+    );
+    setFilteredData(filteredResults);
+  };
+
+  const handleView = (record) => {
+    setSelectedRecord(record);
+    setIsViewModalOpen(true);
+  };
+
+  const handleEdit = (record) => {
+    navigate(`/edit-destination/${record.id}`);
+  };
+
+  const handleDelete = (record) => {
+    setSelectedRecord(record);
+    setIsDeleteModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    setData(data.filter((item) => item.id !== selectedRecord.id));
+    setFilteredData(
+      filteredData.filter((item) => item.id !== selectedRecord.id)
+    );
+    setIsDeleteModalOpen(false);
+  };
+
   return (
-    <>
-      <Table
-        showHeader="true"
-        loading="true"
-        size="large"
-        rowSelection="true"
-        pagination={{
-          position: [top, bottom],
+    <div
+      style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "8px" }}
+    >
+      <Space
+        style={{
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
-        columns={tableColumns}
-        dataSource={hasData ? data : []}
-        scroll={scroll}
+      >
+        <Title level={3} style={{ margin: 0 }}>
+          Destinations
+        </Title>
+        <Button type="primary" icon={<PlusOutlined />}>
+          Add Destination
+        </Button>
+      </Space>
+      <Input
+        placeholder="Search destinations"
+        prefix={<SearchOutlined />}
+        onChange={handleSearch}
+        style={{ marginBottom: 16, maxWidth: 400, padding: 10 }}
       />
-    </>
+      <Table
+        columns={columns}
+        dataSource={filteredData}
+        pagination={{
+          pageSize: pageSize,
+          onChange: (page, size) => setPageSize(size),
+          showSizeChanger: true,
+          pageSizeOptions: ["5", "10", "20"],
+        }}
+        rowSelection={{ type: "checkbox" }}
+        loading={false}
+      />
+
+      {/* View Modal */}
+      <Modal
+        title="Destination Details"
+        open={isViewModalOpen}
+        onCancel={() => setIsViewModalOpen(false)}
+        footer={[
+          <Button key="close" onClick={() => setIsViewModalOpen(false)}>
+            Close
+          </Button>,
+        ]}
+      >
+        {selectedRecord && (
+          <>
+            <p>
+              <strong>ID:</strong> {selectedRecord.id}
+            </p>
+            <p>
+              <strong>Name:</strong> {selectedRecord.name}
+            </p>
+            <img
+              src={selectedRecord.photo}
+              alt="destination"
+              style={{ width: 100, height: 100 }}
+            />
+          </>
+        )}
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        title="Confirm Deletion"
+        open={isDeleteModalOpen}
+        onOk={confirmDelete}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        okText="Delete"
+        okType="danger"
+      >
+        <p>Are you sure you want to delete this destination?</p>
+      </Modal>
+    </div>
   );
 };
+
 export default Destinations;

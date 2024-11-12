@@ -12,3 +12,7 @@ export { default as HomePage } from "./HomePage";
 export { default as KindsOfDest } from "./KindsOfDest";
 export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
 export { default as Destination } from "./DestinationsPages/Destination";
+
+// Dashboard
+export { default as ADashboard } from "./Dashboard/Home";
+export { default as ADestinations } from "./Dashboard/Destinations";

@@ -1,174 +1,345 @@
 import React, { useState } from "react";
 import {
-  PlusOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import { Button, Input, Space, Table, Typography, Modal } from "antd";
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Checkbox,
+  Upload,
+  Row,
+  Col,
+  message,
+} from "antd";
 import { useNavigate } from "react-router-dom";
+import { PlusOutlined } from "@ant-design/icons";
 
-const { Title } = Typography;
-
-const initialData = Array.from({ length: 10 }).map((_, i) => ({
-  key: i,
-  id: `DEST${i + 1}`,
-  name: `Destination Name ${i + 1}`,
-  photo:
-    "https://assets.editorial.aetnd.com/uploads/2011/06/taj-mahal-gettyimages-463924915.jpg",
-}));
+const { TextArea } = Input;
 
 const AddDestination = () => {
-  const [data, setData] = useState(initialData);
-  const [filteredData, setFilteredData] = useState(initialData);
-  const [pageSize, setPageSize] = useState(5);
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [galleryImages, setGalleryImages] = useState([]);
 
-  const columns = [
-    {
-      title: "Destination ID",
-      dataIndex: "id",
-      sorter: (a, b) => a.id.localeCompare(b.id),
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      sorter: (a, b) => a.name.localeCompare(b.name),
-    },
-    {
-      title: "Photo",
-      dataIndex: "photo",
-      render: (photo) => (
-        <img src={photo} alt="destination" style={{ width: 50, height: 50 }} />
-      ),
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (text, record) => (
-        <Space size="middle">
-          <Button icon={<EyeOutlined />} onClick={() => handleView(record)} />
-          <Button icon={<EditOutlined />} onClick={() => handleEdit(record)} />
-          <Button
-            icon={<DeleteOutlined />}
-            danger
-            onClick={() => handleDelete(record)}
-          />
-        </Space>
-      ),
-    },
-  ];
-
-  const handleSearch = (event) => {
-    const value = event.target.value.toLowerCase();
-    const filteredResults = data.filter((item) =>
-      item.name.toLowerCase().includes(value)
-    );
-    setFilteredData(filteredResults);
+  const normFile = (e) => {
+    if (Array.isArray(e)) return e;
+    return e?.fileList;
   };
 
-  const handleView = (record) => {
-    setSelectedRecord(record);
-    setIsViewModalOpen(true);
+  const handleSubmit = (values) => {
+    console.log("Form Values:", values);
+    // Add your API request here to save the data
   };
 
-  const handleEdit = (record) => {
-    navigate(`/edit-destination/${record.id}`);
-  };
-
-  const handleDelete = (record) => {
-    setSelectedRecord(record);
-    setIsDeleteModalOpen(true);
-  };
-
-  const confirmDelete = () => {
-    setData(data.filter((item) => item.id !== selectedRecord.id));
-    setFilteredData(
-      filteredData.filter((item) => item.id !== selectedRecord.id)
-    );
-    setIsDeleteModalOpen(false);
+  const handleGalleryChange = ({ fileList }) => {
+    setGalleryImages(fileList);
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "8px" }}
-    >
-      <Space
+    <div style={{ padding: "20px" }}>
+      <div
         style={{
           marginBottom: "20px",
           display: "flex",
           justifyContent: "space-between",
         }}
       >
-        <Title level={3} style={{ margin: 0 }}>
-          Destinations
-        </Title>
-        <Button type="primary" icon={<PlusOutlined />}>
-          Add Destination
-        </Button>
-      </Space>
-      <Input
-        placeholder="Search destinations"
-        prefix={<SearchOutlined />}
-        onChange={handleSearch}
-        style={{ marginBottom: 16, maxWidth: 400, padding: 10 }}
-      />
-      <Table
-        columns={columns}
-        dataSource={filteredData}
-        pagination={{
-          pageSize: pageSize,
-          onChange: (page, size) => setPageSize(size),
-          showSizeChanger: true,
-          pageSizeOptions: ["5", "10", "20"],
-        }}
-        rowSelection={{ type: "checkbox" }}
-        loading={false}
-      />
+        <h1 className="font-semibold text-2xl">Add Destination</h1>
+        <div className="flex gap-3">
+          <Button onClick={() => navigate(-1)}>Cancel</Button>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => form.submit()}
+          >
+            Add
+          </Button>
+        </div>
+      </div>
 
-      {/* View Modal */}
-      <Modal
-        title="Destination Details"
-        open={isViewModalOpen}
-        onCancel={() => setIsViewModalOpen(false)}
-        footer={[
-          <Button key="close" onClick={() => setIsViewModalOpen(false)}>
-            Close
-          </Button>,
-        ]}
-      >
-        {selectedRecord && (
-          <>
-            <p>
-              <strong>ID:</strong> {selectedRecord.id}
-            </p>
-            <p>
-              <strong>Name:</strong> {selectedRecord.name}
-            </p>
-            <img
-              src={selectedRecord.photo}
-              alt="destination"
-              style={{ width: 100, height: 100 }}
-            />
-          </>
-        )}
-      </Modal>
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+        {/* Left Side - ID, Title, Subtitle */}
+        <Row gutter={[16, 16]}>
+          <Col xs={24} sm={15}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                padding: "16px",
+                borderRadius: "8px",
+              }}
+            >
+              <Row gutter={16}>
+                <Col span={8}>
+                  <Form.Item
+                    label="Destination ID"
+                    name="destinationId"
+                    initialValue="OTD"
+                  >
+                    <Input disabled />
+                  </Form.Item>
+                </Col>
+                <Col span={16}>
+                  <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[
+                      { required: true, message: "Please input the title!" },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col span={24}>
+                  <Form.Item label="Subtitle" name="subTitle">
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col span={24}>
+                  <Form.Item
+                    label="About"
+                    name="about"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter the description!",
+                      },
+                    ]}
+                  >
+                    <TextArea rows={4} />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </div>
+          </Col>
 
-      {/* Delete Confirmation Modal */}
-      <Modal
-        title="Confirm Deletion"
-        open={isDeleteModalOpen}
-        onOk={confirmDelete}
-        onCancel={() => setIsDeleteModalOpen(false)}
-        okText="Delete"
-        okType="danger"
-      >
-        <p>Are you sure you want to delete this destination?</p>
-      </Modal>
+          {/* Right Side - Cover Picture and Gallery */}
+          <Col xs={24} sm={9}>
+            <div
+              style={{
+                backgroundColor: "#fff",
+                padding: "16px",
+                borderRadius: "8px",
+              }}
+            >
+              <Form.Item
+                label="Cover Picture"
+                name="coverPicture"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[
+                  { required: true, message: "Please upload a cover picture!" },
+                ]}
+                style={{ width: "100%" }}
+              >
+                <Upload
+                  action="/upload.do"
+                  listType="picture-card"
+                  maxCount={1}
+                  style={{ width: "100%" }}
+                >
+                  <button
+                    style={{ border: 0, background: "none" }}
+                    type="button"
+                  >
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload</div>
+                  </button>
+                </Upload>
+              </Form.Item>
+
+              <Form.Item label="Gallery Images">
+                <Upload
+                  listType="picture-card"
+                  multiple
+                  beforeUpload={() => false}
+                  fileList={galleryImages}
+                  onChange={handleGalleryChange}
+                >
+                  <button
+                    style={{ border: 0, background: "none" }}
+                    type="button"
+                  >
+                    <PlusOutlined />
+                    <div style={{ marginTop: 8 }}>Upload</div>
+                  </button>
+                </Upload>
+              </Form.Item>
+            </div>
+          </Col>
+        </Row>
+
+        {/* Stays Section */}
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "16px",
+            marginTop: "20px",
+            borderRadius: "8px",
+          }}
+        >
+          <Form.Item label="Stays">
+            <Form.List name="stays">
+              {(fields, { add, remove }) => (
+                <>
+                  <Row gutter={[16, 16]}>
+                    {fields.map(({ key, name, fieldKey, ...restField }) => (
+                      <Col key={key} xs={24} sm={12} md={8}>
+                        <div
+                          style={{
+                            padding: "16px",
+                            border: "1px solid #d9d9d9",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          <Form.Item
+                            {...restField}
+                            name={[name, "name"]}
+                            label="Stay Name"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input stay name!",
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+
+                          <Form.Item
+                            {...restField}
+                            name={[name, "price"]}
+                            label="Price"
+                          >
+                            <Input />
+                          </Form.Item>
+
+                          <Row gutter={8}>
+                            <Col span={12}>
+                              <Form.Item
+                                {...restField}
+                                name={[name, "beds"]}
+                                label="Beds"
+                              >
+                                <InputNumber style={{ width: "100%" }} />
+                              </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                              <Form.Item
+                                {...restField}
+                                name={[name, "baths"]}
+                                label="Baths"
+                              >
+                                <InputNumber style={{ width: "100%" }} />
+                              </Form.Item>
+                            </Col>
+                          </Row>
+
+                          <div className=" flex flex-row justify-between">
+                            <Form.Item
+                              {...restField}
+                              name={[name, "wifi"]}
+                              valuePropName="checked"
+                            >
+                              <Checkbox>WiFi</Checkbox>
+                            </Form.Item>
+                            <Button
+                              onClick={() => remove(name)}
+                              type="dashed"
+                              danger
+                            >
+                              Remove Stay
+                            </Button>
+                          </div>
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    style={{ width: "100%", marginTop: "10px" }}
+                  >
+                    Add Stay
+                  </Button>
+                </>
+              )}
+            </Form.List>
+          </Form.Item>
+        </div>
+
+        {/* Spots Section */}
+        <div
+          style={{
+            backgroundColor: "#fff",
+            padding: "16px",
+            marginTop: "20px",
+            borderRadius: "8px",
+          }}
+        >
+          <Form.Item label="Spots">
+            <Form.List name="spots">
+              {(fields, { add, remove }) => (
+                <>
+                  <Row gutter={[16, 16]}>
+                    {fields.map(({ key, name, fieldKey, ...restField }) => (
+                      <Col key={key} xs={24} sm={12} md={8}>
+                        <div
+                          style={{
+                            padding: "8px",
+                            border: "1px solid #d9d9d9",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          <Form.Item
+                            {...restField}
+                            name={[name, "title"]}
+                            label="Spot Title"
+                            rules={[
+                              {
+                                required: true,
+                                message: "Please input spot title!",
+                              },
+                            ]}
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "imgSrc"]}
+                            label="Image URL"
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "location"]}
+                            label="Location"
+                          >
+                            <Input />
+                          </Form.Item>
+                          <Button
+                            onClick={() => remove(name)}
+                            type="dashed"
+                            danger
+                          >
+                            Remove Spot
+                          </Button>
+                        </div>
+                      </Col>
+                    ))}
+                  </Row>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    style={{ width: "100%", marginTop: "10px" }}
+                  >
+                    Add Spot
+                  </Button>
+                </>
+              )}
+            </Form.List>
+          </Form.Item>
+        </div>
+      </Form>
     </div>
   );
 };

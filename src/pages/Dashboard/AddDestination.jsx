@@ -19,7 +19,7 @@ const initialData = Array.from({ length: 10 }).map((_, i) => ({
     "https://assets.editorial.aetnd.com/uploads/2011/06/taj-mahal-gettyimages-463924915.jpg",
 }));
 
-const Destinations = () => {
+const AddDestination = () => {
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
   const [pageSize, setPageSize] = useState(5);
@@ -173,4 +173,4 @@ const Destinations = () => {
   );
 };
 
-export default Destinations;
+export default AddDestination;

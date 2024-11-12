@@ -16,3 +16,4 @@ export { default as Destination } from "./DestinationsPages/Destination";
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";
 export { default as ADestinations } from "./Dashboard/Destinations";
+export { default as AAddDestination } from "./Dashboard/AddDestination";

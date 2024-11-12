@@ -1,4 +1,92 @@
 import { card1, card2, card3, card4, card5, tajMahal, GOI, redFort, Ladak, Charminar, Baga, munnar, Mysuru, h1, h2, h3, taj1, taj2, taj3, taj4, taj5 } from '../assets';
+import {
+  AppstoreOutlined,
+  HomeOutlined,
+  SettingOutlined,
+  UserOutlined,
+  FileTextOutlined,
+  TeamOutlined,
+  EnvironmentOutlined
+} from "@ant-design/icons";
+
+export const adminNav = [
+  {
+    key: "dashboard",
+    label: "Dashboard",
+    icon: <HomeOutlined />,
+    path: "/dashboard",
+  },
+  {
+    key: "places",
+    label: "Destinations",
+    icon: <EnvironmentOutlined />,
+    children: [
+      {
+        key: "destinations",
+        label: "Destination",
+        path: "/dashboard/destinations",
+      },
+    ],
+  },
+  {
+    key: "management",
+    label: "Management",
+    icon: <AppstoreOutlined />,
+    children: [
+      {
+        key: "users",
+        label: "Users",
+        icon: <UserOutlined />,
+        path: "/dashboard/users",
+      },
+      {
+        key: "teams",
+        label: "Teams",
+        icon: <TeamOutlined />,
+        path: "/dashboard/teams",
+      },
+      {
+        key: "reports",
+        label: "Reports",
+        icon: <FileTextOutlined />,
+        children: [
+          {
+            key: "daily",
+            label: "Daily Reports",
+            path: "/dashboard/reports/daily",
+          },
+          {
+            key: "weekly",
+            label: "Weekly Reports",
+            path: "/dashboard/reports/weekly",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    key: "settings",
+    label: "Settings",
+    icon: <SettingOutlined />,
+    children: [
+      {
+        key: "profile",
+        label: "Profile Settings",
+        path: "/dashboard/settings/profile",
+      },
+      {
+        key: "security",
+        label: "Security",
+        path: "/dashboard/settings/security",
+      },
+      {
+        key: "preferences",
+        label: "Preferences",
+        path: "/dashboard/settings/preferences",
+      },
+    ],
+  },
+];
 
 export const navItems = [
   { label: "Home", to: "/" },

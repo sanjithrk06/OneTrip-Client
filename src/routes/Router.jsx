@@ -18,6 +18,7 @@ import {
   ForgotPassword,
   ResetPassword,
   ADestinations,
+  AAddDestination,
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
 
@@ -99,6 +100,7 @@ const router = createBrowserRouter(
       <Route path="/dashboard/" element={<DashLayout />}>
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
+        <Route path="addDestination" element={<AAddDestination />} />
       </Route>
     </>
   ),

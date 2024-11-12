@@ -107,7 +107,11 @@ const Destinations = () => {
         <Title level={3} style={{ margin: 0 }}>
           Destinations
         </Title>
-        <Button type="primary" icon={<PlusOutlined />}>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => navigate("/dashboard/addDestination")}
+        >
           Add Destination
         </Button>
       </Space>

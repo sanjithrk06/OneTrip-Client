@@ -35,7 +35,7 @@ const AddDestination = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px" }} className=" text-slate-900 font-medium">
       <div
         style={{
           marginBottom: "20px",
@@ -43,11 +43,19 @@ const AddDestination = () => {
           justifyContent: "space-between",
         }}
       >
-        <h1 className="font-semibold text-2xl">Add Destination</h1>
+        <div className=" flex flex-col px-2">
+          <h1 className="font-bold text-2xl text-gray-800">Add Destination</h1>
+          <p className=" font-medium text-gray-500">
+            Add exciting new places to explore.
+          </p>
+        </div>
         <div className="flex gap-3">
-          <Button onClick={() => navigate(-1)}>Cancel</Button>
+          <Button size="medium" onClick={() => navigate(-1)}>
+            Cancel
+          </Button>
           <Button
             type="primary"
+            size="medium"
             icon={<PlusOutlined />}
             onClick={() => form.submit()}
           >
@@ -72,9 +80,14 @@ const AddDestination = () => {
                   <Form.Item
                     label="Destination ID"
                     name="destinationId"
-                    initialValue="OTD"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input the unique id!",
+                      },
+                    ]}
                   >
-                    <Input disabled />
+                    <Input className=" font-normal" placeholder="OTD001" />
                   </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -85,12 +98,18 @@ const AddDestination = () => {
                       { required: true, message: "Please input the title!" },
                     ]}
                   >
-                    <Input />
+                    <Input
+                      className=" font-normal"
+                      placeholder="Destination Title"
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <Form.Item label="Subtitle" name="subTitle">
-                    <Input />
+                    <Input
+                      className=" font-normal"
+                      placeholder="Destination Sub-Title"
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
@@ -104,7 +123,11 @@ const AddDestination = () => {
                       },
                     ]}
                   >
-                    <TextArea rows={4} />
+                    <TextArea
+                      className=" font-normal"
+                      placeholder="About the Destination"
+                      rows={8}
+                    />
                   </Form.Item>
                 </Col>
               </Row>

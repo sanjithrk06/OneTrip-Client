@@ -19,7 +19,7 @@ const initialData = Array.from({ length: 10 }).map((_, i) => ({
     "https://assets.editorial.aetnd.com/uploads/2011/06/taj-mahal-gettyimages-463924915.jpg",
 }));
 
-const Destinations = () => {
+const RequestList = () => {
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
   const [pageSize, setPageSize] = useState(5);
@@ -94,10 +94,8 @@ const Destinations = () => {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#fff", padding: "20px", borderRadius: "8px" }}
-    >
-      <Space
+    <>
+      <div
         style={{
           marginBottom: "20px",
           display: "flex",
@@ -105,72 +103,80 @@ const Destinations = () => {
         }}
       >
         <Title level={3} style={{ margin: 0 }}>
-          Destinations
+          Destination Requests
         </Title>
-        <Button type="primary" icon={<PlusOutlined />}>
-          Add Destination
-        </Button>
-      </Space>
-      <Input
-        placeholder="Search destinations"
-        prefix={<SearchOutlined />}
-        onChange={handleSearch}
-        style={{ marginBottom: 16, maxWidth: 400, padding: 10 }}
-      />
-      <Table
-        columns={columns}
-        dataSource={filteredData}
-        pagination={{
-          pageSize: pageSize,
-          onChange: (page, size) => setPageSize(size),
-          showSizeChanger: true,
-          pageSizeOptions: ["5", "10", "20"],
+      </div>
+      <div
+        style={{
+          backgroundColor: "#fff",
+          padding: "20px",
+          borderRadius: "8px",
         }}
-        rowSelection={{ type: "checkbox" }}
-        loading={false}
-      />
-
-      {/* View Modal */}
-      <Modal
-        title="Destination Details"
-        open={isViewModalOpen}
-        onCancel={() => setIsViewModalOpen(false)}
-        footer={[
-          <Button key="close" onClick={() => setIsViewModalOpen(false)}>
-            Close
-          </Button>,
-        ]}
       >
-        {selectedRecord && (
-          <>
-            <p>
-              <strong>ID:</strong> {selectedRecord.id}
-            </p>
-            <p>
-              <strong>Name:</strong> {selectedRecord.name}
-            </p>
-            <img
-              src={selectedRecord.photo}
-              alt="destination"
-              style={{ width: 100, height: 100 }}
-            />
-          </>
-        )}
-      </Modal>
+        <Input
+          placeholder="Search destinations"
+          prefix={<SearchOutlined />}
+          onChange={handleSearch}
+          style={{ marginBottom: 16, maxWidth: 400, padding: 10 }}
+        />
+        <Table
+          columns={columns}
+          dataSource={filteredData}
+          scroll={{
+            x: "max-content",
+          }}
+          pagination={{
+            pageSize: pageSize,
+            onChange: (page, size) => setPageSize(size),
+            showSizeChanger: true,
+            pageSizeOptions: ["5", "10", "20"],
+          }}
+          rowSelection={{ type: "checkbox" }}
+          loading={false}
+        />
 
-      {/* Delete Confirmation Modal */}
-      <Modal
-        title="Confirm Deletion"
-        open={isDeleteModalOpen}
-        onOk={confirmDelete}
-        onCancel={() => setIsDeleteModalOpen(false)}
-        okText="Delete"
-        okType="danger"
-      >
-        <p>Are you sure you want to delete this destination?</p>
-      </Modal>
-    </div>
+        {/* View Modal */}
+        <Modal
+          title="Destination Details"
+          open={isViewModalOpen}
+          onCancel={() => setIsViewModalOpen(false)}
+          footer={[
+            <Button key="close" onClick={() => setIsViewModalOpen(false)}>
+              Close
+            </Button>,
+          ]}
+        >
+          {selectedRecord && (
+            <>
+              <p>
+                <strong>ID:</strong> {selectedRecord.id}
+              </p>
+              <p>
+                <strong>Name:</strong> {selectedRecord.name}
+              </p>
+              <img
+                src={selectedRecord.photo}
+                alt="destination"
+                style={{ width: 100, height: 100 }}
+              />
+            </>
+          )}
+        </Modal>
+
+        {/* Delete Confirmation Modal */}
+        <Modal
+          title="Confirm Deletion"
+          open={isDeleteModalOpen}
+          onOk={confirmDelete}
+          onCancel={() => setIsDeleteModalOpen(false)}
+          okText="Delete"
+          okType="danger"
+        >
+          <p>Are you sure you want to delete this destination?</p>
+        </Modal>
+      </div>
+    </>
   );
 };
 
-export default Destinations;
+export default RequestList;

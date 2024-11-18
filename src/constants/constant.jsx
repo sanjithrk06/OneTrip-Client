@@ -1,4 +1,26 @@
-import { card1, card2, card3, card4, card5, tajMahal, GOI, redFort, Ladak, Charminar, Baga, munnar, Mysuru, h1, h2, h3, taj1, taj2, taj3, taj4, taj5 } from '../assets';
+import {
+  card1,
+  card2,
+  card3,
+  card4,
+  card5,
+  tajMahal,
+  GOI,
+  redFort,
+  Ladak,
+  Charminar,
+  Baga,
+  munnar,
+  Mysuru,
+  h1,
+  h2,
+  h3,
+  taj1,
+  taj2,
+  taj3,
+  taj4,
+  taj5,
+} from "../assets";
 import {
   AppstoreOutlined,
   HomeOutlined,
@@ -6,7 +28,8 @@ import {
   UserOutlined,
   FileTextOutlined,
   TeamOutlined,
-  EnvironmentOutlined
+  EnvironmentOutlined,
+  FundViewOutlined,
 } from "@ant-design/icons";
 
 export const adminNav = [
@@ -23,95 +46,147 @@ export const adminNav = [
     children: [
       {
         key: "destinations",
-        label: "Destination",
+        label: "Destinations",
         path: "/dashboard/destinations",
       },
-    ],
-  },
-  {
-    key: "management",
-    label: "Management",
-    icon: <AppstoreOutlined />,
-    children: [
       {
-        key: "users",
-        label: "Users",
-        icon: <UserOutlined />,
-        path: "/dashboard/users",
-      },
-      {
-        key: "teams",
-        label: "Teams",
-        icon: <TeamOutlined />,
-        path: "/dashboard/teams",
-      },
-      {
-        key: "reports",
-        label: "Reports",
-        icon: <FileTextOutlined />,
-        children: [
-          {
-            key: "daily",
-            label: "Daily Reports",
-            path: "/dashboard/reports/daily",
-          },
-          {
-            key: "weekly",
-            label: "Weekly Reports",
-            path: "/dashboard/reports/weekly",
-          },
-        ],
+        key: "add-destinations",
+        label: "Add Destination",
+        path: "/dashboard/addDestination",
       },
     ],
   },
   {
-    key: "settings",
-    label: "Settings",
-    icon: <SettingOutlined />,
+    key: "request",
+    label: "Requests",
+    icon: <FundViewOutlined />,
     children: [
       {
-        key: "profile",
-        label: "Profile Settings",
-        path: "/dashboard/settings/profile",
-      },
-      {
-        key: "security",
-        label: "Security",
-        path: "/dashboard/settings/security",
-      },
-      {
-        key: "preferences",
-        label: "Preferences",
-        path: "/dashboard/settings/preferences",
+        key: "requestList",
+        label: "Requests List",
+        path: "/dashboard/requests",
       },
     ],
   },
+  // {
+  //   key: "management",
+  //   label: "Management",
+  //   icon: <AppstoreOutlined />,
+  //   children: [
+  //     {
+  //       key: "users",
+  //       label: "Users",
+  //       icon: <UserOutlined />,
+  //       path: "/dashboard/users",
+  //     },
+  //     {
+  //       key: "teams",
+  //       label: "Teams",
+  //       icon: <TeamOutlined />,
+  //       path: "/dashboard/teams",
+  //     },
+  //     {
+  //       key: "reports",
+  //       label: "Reports",
+  //       icon: <FileTextOutlined />,
+  //       children: [
+  //         {
+  //           key: "daily",
+  //           label: "Daily Reports",
+  //           path: "/dashboard/reports/daily",
+  //         },
+  //         {
+  //           key: "weekly",
+  //           label: "Weekly Reports",
+  //           path: "/dashboard/reports/weekly",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: "settings",
+  //   label: "Settings",
+  //   icon: <SettingOutlined />,
+  //   children: [
+  //     {
+  //       key: "profile",
+  //       label: "Profile Settings",
+  //       path: "/dashboard/settings/profile",
+  //     },
+  //     {
+  //       key: "security",
+  //       label: "Security",
+  //       path: "/dashboard/settings/security",
+  //     },
+  //     {
+  //       key: "preferences",
+  //       label: "Preferences",
+  //       path: "/dashboard/settings/preferences",
+  //     },
+  //   ],
+  // },
 ];
 
 export const navItems = [
   { label: "Home", to: "/" },
   { label: "Destinations", to: "/destinations" },
-  { label: "Packages", to: "#" },
-  { label: "Apply for eVisa", to: "#" },
+  { label: "Packages", to: "/packages" },
+  { label: "Suggest Hidden Spot", to: "/hiddenSpot" },
+  {
+    label: "Apply for eVisa",
+    to: "https://indianvisaonline.gov.in/evisa/tvoa.html",
+  },
 ];
 
 export const footerInformation = [
-  { label: "Home", to: "#"},
-  { label: "Explore", to: "#"},
-  { label: "Packages", to: "#"},
-  { label: "Blog", to: "#"}
+  { label: "Home", to: "#" },
+  { label: "Explore", to: "#" },
+  { label: "Packages", to: "#" },
+  { label: "Blog", to: "#" },
 ];
 
 export const KindsOfDestDetails = {
   title: "Kinds of Destinations",
-  subTitle: "From historical cities to natural spectacles, come see the best of the world!",
+  subTitle:
+    "From historical cities to natural spectacles, come see the best of the world!",
   destinations: [
-    { id:1, title: 'Famous', imgSrc: card1, alt: 'Image of Famous Place',  route: '/destinations/famous' },
-    { id:2, title: 'Hill Stations', imgSrc: card2, alt: 'Image of Hill Station', route: '/destinations/hill-stations' },
-    { id:3, title: 'Spiritual', imgSrc: card3, alt: 'Image of Spiritual Place',  route: '/destinations/spiritual' },
-    { id:4, title: 'Heritage', imgSrc: card4, alt: 'Image of Heritage Site',  route: '/destinations/heritage' },
-    { id:5, title: 'Beach', imgSrc: card5, alt: 'Image of Beach Place',  route: '/destinations/beach' }
-  ]
+    {
+      id: 1,
+      title: "Famous",
+      imgSrc: card1,
+      alt: "Image of Famous Place",
+      route: "/destinations/famous",
+    },
+    {
+      id: 2,
+      title: "Hill Stations",
+      imgSrc: card2,
+      alt: "Image of Hill Station",
+      route: "/destinations/hill-stations",
+    },
+    {
+      id: 3,
+      title: "Spiritual",
+      imgSrc: card3,
+      alt: "Image of Spiritual Place",
+      route: "/destinations/spiritual",
+    },
+    {
+      id: 4,
+      title: "Heritage",
+      imgSrc: card4,
+      alt: "Image of Heritage Site",
+      route: "/destinations/heritage",
+    },
+    {
+      id: 5,
+      title: "Beach",
+      imgSrc: card5,
+      alt: "Image of Beach Place",
+      route: "/destinations/beach",
+    },
+  ],
 };
 
 export const destinations = {
@@ -119,21 +194,69 @@ export const destinations = {
     title: "Famous Destinations",
     subTitle: "Explore historical cities and renowned landmarks!",
     destinations: [
-      { title: 'Taj Mahal', imgSrc: tajMahal, alt: 'Agra', location: 'Agra', route: '/destinations/taj' },
-      { title: 'Red Fort', imgSrc: redFort, alt: 'Delhi', location: 'Delhi', route: '' },
-      { title: 'Gateway Of India', imgSrc: GOI, alt: 'Maharashtra', location: 'Maharashtra', route: '' },
-      { title: 'Ladakh', imgSrc: Ladak, alt: 'Kashmir', location: 'Kashmir', route: '' },
-      { title: 'Charminar', imgSrc: Charminar, alt: 'Telangana', location: 'Telangana', route: '' },
-      { title: 'Baga Beach', imgSrc: Baga, alt: 'Goa', location: 'Goa', route: '' },
-      { title: 'Munnar', imgSrc: munnar, alt: 'Kerala', location: 'Kerala', route: '' },
-      { title: 'Mysuru Palace', imgSrc: Mysuru, alt: 'Karnataka', location: 'Karnataka', route: '' },
-    ]
+      {
+        title: "Taj Mahal",
+        imgSrc: tajMahal,
+        alt: "Agra",
+        location: "Agra",
+        route: "/destinations/taj",
+      },
+      {
+        title: "Red Fort",
+        imgSrc: redFort,
+        alt: "Delhi",
+        location: "Delhi",
+        route: "",
+      },
+      {
+        title: "Gateway Of India",
+        imgSrc: GOI,
+        alt: "Maharashtra",
+        location: "Maharashtra",
+        route: "",
+      },
+      {
+        title: "Ladakh",
+        imgSrc: Ladak,
+        alt: "Kashmir",
+        location: "Kashmir",
+        route: "",
+      },
+      {
+        title: "Charminar",
+        imgSrc: Charminar,
+        alt: "Telangana",
+        location: "Telangana",
+        route: "",
+      },
+      {
+        title: "Baga Beach",
+        imgSrc: Baga,
+        alt: "Goa",
+        location: "Goa",
+        route: "",
+      },
+      {
+        title: "Munnar",
+        imgSrc: munnar,
+        alt: "Kerala",
+        location: "Kerala",
+        route: "",
+      },
+      {
+        title: "Mysuru Palace",
+        imgSrc: Mysuru,
+        alt: "Karnataka",
+        location: "Karnataka",
+        route: "",
+      },
+    ],
   },
   hillStation: {
     title: "Hill Station Destinations",
     subTitle: "Enjoy serene views from the best hill stations!",
-    destinations: []
-  }
+    destinations: [],
+  },
 };
 
 export const dTajMahal = {
@@ -152,7 +275,7 @@ export const dTajMahal = {
       time: "12mins",
       hours: "24 hrs",
       location: "Agra",
-      imgSrc: h1
+      imgSrc: h1,
     },
     {
       name: "Imperial Hotel",
@@ -165,7 +288,7 @@ export const dTajMahal = {
       time: "12mins",
       hours: "24 hrs",
       location: "Agra",
-      imgSrc: h2
+      imgSrc: h2,
     },
     {
       name: "Hotel Orange",
@@ -178,12 +301,10 @@ export const dTajMahal = {
       time: "10mins",
       hours: "24 hrs",
       location: "Agra",
-      imgSrc: h3
-    }
+      imgSrc: h3,
+    },
   ],
-  gallery: [
-    taj2, taj3, taj4, taj5
-  ],
+  gallery: [taj2, taj3, taj4, taj5],
   about: `The Taj Mahal is a white marble mausoleum located in Agra, India. It was built by the Mughal emperor Shah Jahan in memory of his beloved wife, Mumtaz Mahal, who died in 1631. Construction of the Taj Mahal began in 1632 and was completed in 1653.
 
 The Taj Mahal is considered one of the most beautiful buildings in the world and is a UNESCO World Heritage Site. It is renowned for its stunning architecture and intricate carvings, which are made from a variety of precious and semi-precious stones such as lapis lazuli, turquoise, and malachite.
@@ -195,13 +316,61 @@ The interior of the Taj Mahal is equally stunning, with intricate carvings and i
 The Taj Mahal is considered a masterpiece of Mughal architecture and is visited by millions of tourists every year. It is a symbol of love and devotion and remains one of the most popular landmarks of India.
   `,
   spots: [
-    { title: 'Taj Mahal', imgSrc: tajMahal, alt: 'Agra', location: 'Agra', route: '' },
-    { title: 'Red Fort', imgSrc: redFort, alt: 'Delhi', location: 'Delhi', route: '' },
-    { title: 'Gateway Of India', imgSrc: GOI, alt: 'Maharashtra', location: 'Maharashtra', route: '' },
-    { title: 'Ladakh', imgSrc: Ladak, alt: 'Kashmir', location: 'Kashmir', route: '' },
-    { title: 'Charminar', imgSrc: Charminar, alt: 'Telungana', location: 'Telangana', route: '' },
-    { title: 'Baga Beach', imgSrc: Baga, alt: 'Goa', location: 'Goa', route: '' },
-    { title: 'Munnar', imgSrc: munnar, alt: 'Kerala', location: 'Kerala', route: '' },
-    { title: 'Mysuru Palace', imgSrc: Mysuru, alt: 'Karnataka', location: 'Karnataka', route: '' },
-  ]
+    {
+      title: "Taj Mahal",
+      imgSrc: tajMahal,
+      alt: "Agra",
+      location: "Agra",
+      route: "",
+    },
+    {
+      title: "Red Fort",
+      imgSrc: redFort,
+      alt: "Delhi",
+      location: "Delhi",
+      route: "",
+    },
+    {
+      title: "Gateway Of India",
+      imgSrc: GOI,
+      alt: "Maharashtra",
+      location: "Maharashtra",
+      route: "",
+    },
+    {
+      title: "Ladakh",
+      imgSrc: Ladak,
+      alt: "Kashmir",
+      location: "Kashmir",
+      route: "",
+    },
+    {
+      title: "Charminar",
+      imgSrc: Charminar,
+      alt: "Telungana",
+      location: "Telangana",
+      route: "",
+    },
+    {
+      title: "Baga Beach",
+      imgSrc: Baga,
+      alt: "Goa",
+      location: "Goa",
+      route: "",
+    },
+    {
+      title: "Munnar",
+      imgSrc: munnar,
+      alt: "Kerala",
+      location: "Kerala",
+      route: "",
+    },
+    {
+      title: "Mysuru Palace",
+      imgSrc: Mysuru,
+      alt: "Karnataka",
+      location: "Karnataka",
+      route: "",
+    },
+  ],
 };

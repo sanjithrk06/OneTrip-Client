@@ -57,7 +57,7 @@ const DashLayout = () => {
   return (
     <Layout className="min-h-screen">
       <Sider
-        theme="light"
+        theme="dark"
         breakpoint="lg"
         collapsedWidth="0"
         width="230"
@@ -75,7 +75,7 @@ const DashLayout = () => {
           </span>
         </div>
         <Menu
-          theme="light"
+          theme="dark"
           onClick={onClick}
           selectedKeys={[current]}
           defaultOpenKeys={[

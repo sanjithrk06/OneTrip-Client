@@ -19,7 +19,7 @@ const initialData = Array.from({ length: 10 }).map((_, i) => ({
     "https://assets.editorial.aetnd.com/uploads/2011/06/taj-mahal-gettyimages-463924915.jpg",
 }));
 
-const AddDestination = () => {
+const Destinations = () => {
   const [data, setData] = useState(initialData);
   const [filteredData, setFilteredData] = useState(initialData);
   const [pageSize, setPageSize] = useState(5);
@@ -107,7 +107,11 @@ const AddDestination = () => {
         <Title level={3} style={{ margin: 0 }}>
           Destinations
         </Title>
-        <Button type="primary" icon={<PlusOutlined />}>
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          onClick={() => navigate("/dashboard/addDestination")}
+        >
           Add Destination
         </Button>
       </Space>
@@ -173,4 +177,4 @@ const AddDestination = () => {
   );
 };
 
-export default AddDestination;
+export default Destinations;

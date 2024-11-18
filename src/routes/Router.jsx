@@ -18,6 +18,9 @@ import {
   ResetPassword,
   ADestinations,
   AAddDestination,
+  ARequestList,
+  HiddenSpot,
+  Packages,
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
 
@@ -26,11 +29,11 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth/login" replace />;
   }
 
   if (!user?.isVerified) {
-    return <Navigate to="/verify-email" replace />;
+    return <Navigate to="/auth/verify-email" replace />;
   }
 
   return children;
@@ -86,8 +89,28 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
+        {/* Destinations Path */}
+        <Route path="destinations">
+          <Route index element={<KindsOfDest />} />
+          <Route path=":category" element={<ListOfDest />} />
+          <Route path=":category/:destinationName" element={<Destination />} />
+        </Route>
+      </Route>
+
+      <Route path="/" element={<HomeLayout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="hiddenSpot"
+          element={
+            <ProtectedRoute>
+              <HiddenSpot />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="packages" element={<Packages />} />
         {/* Destinations Path */}
         <Route path="destinations">
           <Route index element={<KindsOfDest />} />
@@ -100,6 +123,7 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="requests" element={<ARequestList />} />
       </Route>
     </>
   ),

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -18,17 +18,21 @@
   --inputColor: hsl(330, 12%, 97%);
 }
 
-.custom-scrollbar::selection{
+body {
+  background: white;
+}
+
+.custom-scrollbar::selection {
   background: hsl(26, 93%, 50%);
   color: hsl(0, 0%, 100%);
 }
 
-.custom-scrollbar::-webkit-scrollbar{
+.custom-scrollbar::-webkit-scrollbar {
   width: 10px;
   background: hsl(0, 0%, 96%);
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb{
+.custom-scrollbar::-webkit-scrollbar-thumb {
   background: hsl(26, 93%, 50%);
   border-radius: 10px;
   cursor: pointer;

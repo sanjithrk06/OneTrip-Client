@@ -12,8 +12,13 @@ export { default as HomePage } from "./HomePage";
 export { default as KindsOfDest } from "./KindsOfDest";
 export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
 export { default as Destination } from "./DestinationsPages/Destination";
+export { default as HiddenSpot } from "./DestinationsPages/HiddenSpot";
+
+// Packages
+export { default as Packages } from "./PackagesPages/Packages";
 
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";
-export { default as ADestinations } from "./Dashboard/Destinations";
-export { default as AAddDestination } from "./Dashboard/AddDestination";
+export { default as ADestinations } from "./Dashboard/Destinations/Destinations";
+export { default as AAddDestination } from "./Dashboard/Destinations/AddDestination";
+export { default as ARequestList } from "./Dashboard/Request/RequestList";

@@ -20,7 +20,8 @@ const KindsOfDest = () => {
       <ListDestinations
         title={KindsOfDestDetails.title} 
         subTitle ={KindsOfDestDetails.subTitle} 
-        lists={KindsOfDestDetails.destinations}  
+        lists={KindsOfDestDetails.destinations} 
+        category=""
       />
     </>
   )

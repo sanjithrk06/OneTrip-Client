@@ -106,11 +106,11 @@ export const KindsOfDestDetails = {
   title: "Kinds of Destinations",
   subTitle: "From historical cities to natural spectacles, come see the best of the world!",
   destinations: [
-    { id:1, title: 'Famous', imgSrc: card1, alt: 'Image of Famous Place',  route: '/destinations/famous' },
-    { id:2, title: 'Hill Stations', imgSrc: card2, alt: 'Image of Hill Station', route: '/destinations/hill-stations' },
-    { id:3, title: 'Spiritual', imgSrc: card3, alt: 'Image of Spiritual Place',  route: '/destinations/spiritual' },
-    { id:4, title: 'Heritage', imgSrc: card4, alt: 'Image of Heritage Site',  route: '/destinations/heritage' },
-    { id:5, title: 'Beach', imgSrc: card5, alt: 'Image of Beach Place',  route: '/destinations/beach' }
+    { id:1, title: 'Famous', imgSrc: card1, alt: 'Image of Famous Place', route: 'famous' },
+    { id:2, title: 'Hill Stations', imgSrc: card2, alt: 'Image of Hill Station', route: 'hill-stations' },
+    { id:3, title: 'Spiritual', imgSrc: card3, alt: 'Image of Spiritual Place', route: 'spiritual' },
+    { id:4, title: 'Heritage', imgSrc: card4, alt: 'Image of Heritage Site', route: 'heritage' },
+    { id:5, title: 'Beach', imgSrc: card5, alt: 'Image of Beach Place', route: 'beach' }
   ]
 };
 
@@ -119,14 +119,14 @@ export const destinations = {
     title: "Famous Destinations",
     subTitle: "Explore historical cities and renowned landmarks!",
     destinations: [
-      { title: 'Taj Mahal', imgSrc: tajMahal, alt: 'Agra', location: 'Agra', route: '/destinations/taj' },
-      { title: 'Red Fort', imgSrc: redFort, alt: 'Delhi', location: 'Delhi', route: '' },
-      { title: 'Gateway Of India', imgSrc: GOI, alt: 'Maharashtra', location: 'Maharashtra', route: '' },
-      { title: 'Ladakh', imgSrc: Ladak, alt: 'Kashmir', location: 'Kashmir', route: '' },
-      { title: 'Charminar', imgSrc: Charminar, alt: 'Telangana', location: 'Telangana', route: '' },
-      { title: 'Baga Beach', imgSrc: Baga, alt: 'Goa', location: 'Goa', route: '' },
-      { title: 'Munnar', imgSrc: munnar, alt: 'Kerala', location: 'Kerala', route: '' },
-      { title: 'Mysuru Palace', imgSrc: Mysuru, alt: 'Karnataka', location: 'Karnataka', route: '' },
+      { title: 'Taj Mahal', imgSrc: tajMahal, alt: 'Agra', location: 'Agra', route: '/taj' },
+      { title: 'Red Fort', imgSrc: redFort, alt: 'Delhi', location: 'Delhi', route: '/red-fort' },
+      { title: 'Gateway Of India', imgSrc: GOI, alt: 'Maharashtra', location: 'Maharashtra', route: '/goi' },
+      { title: 'Ladakh', imgSrc: Ladak, alt: 'Kashmir', location: 'Kashmir', route: '/ladakh' },
+      { title: 'Charminar', imgSrc: Charminar, alt: 'Telangana', location: 'Telangana', route: '/charminar' },
+      { title: 'Baga Beach', imgSrc: Baga, alt: 'Goa', location: 'Goa', route: '/baga-beach' },
+      { title: 'Munnar', imgSrc: munnar, alt: 'Kerala', location: 'Kerala', route: '/munnar' },
+      { title: 'Mysuru Palace', imgSrc: Mysuru, alt: 'Karnataka', location: 'Karnataka', route: 'mysusru-palace' },
     ]
   },
   hillStation: {

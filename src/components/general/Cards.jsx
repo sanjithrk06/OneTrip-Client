@@ -10,24 +10,6 @@ const Cards = ({ image, imageAlt, title, location, route }) => {
 
   return (
     <>
-    {/* <div
-      className="bg-white shadow-2xl shadow-gray-600  rounded-3xl overflow-hidden w-full sm:w-72 relative cursor-pointer"
-      onClick={handleCardClick}
-    >
-      <div className="relative group">
-        <img src={image} alt={destTitle} className="w-full h-48 object-cover transition-transform duration-1000 ease-in-out " />
-        <div className="absolute inset-0 bg-gray-800 bg-opacity-60 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-40 duration-1000 flex justify-center items-center">
-          <p className="text-white text-lg font-semibold">{location}</p>
-        </div>
-      </div>
-      <div className="p-4 flex justify-between items-center">
-        <h3 className="text-lg font-bold text-gray-800">{destTitle}</h3>
-        <div className="flex items-center space-x-1">
-          <span className="h-2 w-2 rounded-full bg-orange-500 inline-block"></span>
-          <p className="text-sm text-gray-600">{location}</p>
-        </div>
-      </div>
-    </div> */}
     <div className="rounded-xl pb-6 px-2 pt-2 cursor-pointer shadow-[0px_8px_24px_rgba(149,157,165,0.2)] bg-white" onClick={handleCardClick}>
   <div className="overflow-hidden rounded-lg">
     <img

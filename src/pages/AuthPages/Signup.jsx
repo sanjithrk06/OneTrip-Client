@@ -400,7 +400,7 @@ const Signup = () => {
                 <div className="grow bg-gray-50 p-5 pt-0 text-center text-sm md:px-16">
                   Already have an account?{" "}
                   <Link
-                    to={"/login"}
+                    to={"/auth/login"}
                     className="font-medium text-primary hover:text-rose-400"
                   >
                     Login

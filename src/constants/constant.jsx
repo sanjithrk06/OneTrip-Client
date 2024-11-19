@@ -241,7 +241,7 @@ export const destinations = {
         imgSrc: munnar,
         alt: "Kerala",
         location: "Kerala",
-        route: "",
+        route: "/munnar",
       },
       {
         title: "Mysuru Palace",

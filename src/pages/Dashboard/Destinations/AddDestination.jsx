@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { TextArea } = Input;
 
@@ -19,15 +20,37 @@ const AddDestination = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [galleryImages, setGalleryImages] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const normFile = (e) => {
     if (Array.isArray(e)) return e;
     return e?.fileList;
   };
 
-  const handleSubmit = (values) => {
-    console.log("Form Values:", values);
-    // Add your API request here to save the data
+  const handleSubmit = async (values) => {
+    try {
+      setIsSubmitting(true);
+
+      const payload = {
+        name: values.destinationId,
+        title: values.title,
+        subTitle: values.subTitle,
+        about: values.about,
+      };
+
+      const response = await axios.post(
+        "http://localhost:5001/api/destinationPage/create",
+        payload
+      );
+
+      message.success("Destination created successfully!");
+      navigate("/dashboard/destinations");
+    } catch (error) {
+      console.error("Error creating destination:", error);
+      message.error("Failed to create destination. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleGalleryChange = ({ fileList }) => {
@@ -58,6 +81,7 @@ const AddDestination = () => {
             size="medium"
             icon={<PlusOutlined />}
             onClick={() => form.submit()}
+            loading={isSubmitting}
           >
             Add
           </Button>
@@ -87,7 +111,7 @@ const AddDestination = () => {
                       },
                     ]}
                   >
-                    <Input className=" font-normal" placeholder="OTD001" />
+                    <Input className=" font-normal" placeholder="D001" />
                   </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -148,9 +172,9 @@ const AddDestination = () => {
                 name="coverPicture"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                rules={[
-                  { required: true, message: "Please upload a cover picture!" },
-                ]}
+                // rules={[
+                //   { required: true, message: "Please upload a cover picture!" },
+                // ]}
                 style={{ width: "100%" }}
               >
                 <Upload

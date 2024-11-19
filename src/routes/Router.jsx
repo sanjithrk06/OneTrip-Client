@@ -95,16 +95,6 @@ const router = createBrowserRouter(
 
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
-        {/* Destinations Path */}
-        <Route path="destinations">
-          <Route index element={<KindsOfDest />} />
-          <Route path=":category" element={<ListOfDest />} />
-          <Route path=":category/:destinationName" element={<Destination />} />
-        </Route>
-      </Route>
-
-      <Route path="/" element={<HomeLayout />}>
-        <Route index element={<HomePage />} />
         <Route
           path="hiddenSpot"
           element={

@@ -21,6 +21,9 @@ import {
   ARequestList,
   HiddenSpot,
   Packages,
+  // PaymentPage,
+  // SuccessPage,
+  // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
 
@@ -115,6 +118,13 @@ const router = createBrowserRouter(
         <Route path="addDestination" element={<AAddDestination />} />
         <Route path="requests" element={<ARequestList />} />
       </Route>
+
+      {/* Payment  route*/}
+      {/* <Route path="/payment" element={<PaymentPage/>}>
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/cancel" element={<CancelPage />} />
+      </Route> */}
+    
     </>
   ),
   {

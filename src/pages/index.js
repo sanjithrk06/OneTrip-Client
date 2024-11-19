@@ -22,3 +22,8 @@ export { default as ADashboard } from "./Dashboard/Home";
 export { default as ADestinations } from "./Dashboard/Destinations/Destinations";
 export { default as AAddDestination } from "./Dashboard/Destinations/AddDestination";
 export { default as ARequestList } from "./Dashboard/Request/RequestList";
+
+// Payment 
+// export { default as PaymentPage } from "./Payment/PaymentPage.jsx"
+// export { default as SuccessPage } from "./Payment/SuccessPage.jsx"
+// export { default as CancelPage } from "./Payment/CancelPage.jsx"

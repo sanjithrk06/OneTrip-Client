@@ -9,6 +9,7 @@ export { default as ListDestinations } from "./section/ListDestinations";
 // General Components
 export { default as GHero } from "./general/Hero";
 export { default as Card } from "./general/Cards";
+export { default as PackageCard } from "./general/PackageCard";
 
 // Single Destination Componenets
 export { default as DestHero } from "./section/Destinations/Hero";

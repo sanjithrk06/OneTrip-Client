@@ -206,21 +206,21 @@ export const destinations = {
         imgSrc: redFort,
         alt: "Delhi",
         location: "Delhi",
-        route: "",
+        route: "/delhi",
       },
       {
         title: "Gateway Of India",
         imgSrc: GOI,
         alt: "Maharashtra",
         location: "Maharashtra",
-        route: "",
+        route: "/GOI",
       },
       {
         title: "Ladakh",
         imgSrc: Ladak,
         alt: "Kashmir",
         location: "Kashmir",
-        route: "",
+        route: "/ladakh",
       },
       {
         title: "Charminar",
@@ -241,7 +241,7 @@ export const destinations = {
         imgSrc: munnar,
         alt: "Kerala",
         location: "Kerala",
-        route: "",
+        route: "/munnar",
       },
       {
         title: "Mysuru Palace",

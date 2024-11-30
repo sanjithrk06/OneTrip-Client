@@ -21,9 +21,11 @@ export { default as Packages } from "./PackagesPages/Packages";
 export { default as ADashboard } from "./Dashboard/Home";
 export { default as ADestinations } from "./Dashboard/Destinations/Destinations";
 export { default as AAddDestination } from "./Dashboard/Destinations/AddDestination";
+export { default as APackages } from "./Dashboard/Packages/Packages";
+export { default as AAddPackage } from "./Dashboard/Packages/AddPackage";
 export { default as ARequestList } from "./Dashboard/Request/RequestList";
 
-// Payment 
+// Payment
 // export { default as PaymentPage } from "./Payment/PaymentPage.jsx"
 // export { default as SuccessPage } from "./Payment/SuccessPage.jsx"
 // export { default as CancelPage } from "./Payment/CancelPage.jsx"

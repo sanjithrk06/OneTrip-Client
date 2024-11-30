@@ -21,6 +21,8 @@ import {
   ARequestList,
   HiddenSpot,
   Packages,
+  APackages,
+  AAddPackage,
   // PaymentPage,
   // SuccessPage,
   // CancelPage
@@ -116,6 +118,8 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="packages" element={<APackages />} />
+        <Route path="addPackage" element={<AAddPackage />} />
         <Route path="requests" element={<ARequestList />} />
       </Route>
 
@@ -124,7 +128,6 @@ const router = createBrowserRouter(
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
       </Route> */}
-    
     </>
   ),
   {

@@ -24,10 +24,6 @@ import {
 import {
   AppstoreOutlined,
   HomeOutlined,
-  SettingOutlined,
-  UserOutlined,
-  FileTextOutlined,
-  TeamOutlined,
   EnvironmentOutlined,
   FundViewOutlined,
 } from "@ant-design/icons";
@@ -57,6 +53,18 @@ export const adminNav = [
     ],
   },
   {
+    key: "package",
+    label: "Package",
+    icon: <AppstoreOutlined />,
+    children: [
+      {
+        key: "packages",
+        label: "Packages",
+        path: "/dashboard/packages",
+      },
+    ],
+  },
+  {
     key: "request",
     label: "Requests",
     icon: <FundViewOutlined />,
@@ -68,64 +76,6 @@ export const adminNav = [
       },
     ],
   },
-  // {
-  //   key: "management",
-  //   label: "Management",
-  //   icon: <AppstoreOutlined />,
-  //   children: [
-  //     {
-  //       key: "users",
-  //       label: "Users",
-  //       icon: <UserOutlined />,
-  //       path: "/dashboard/users",
-  //     },
-  //     {
-  //       key: "teams",
-  //       label: "Teams",
-  //       icon: <TeamOutlined />,
-  //       path: "/dashboard/teams",
-  //     },
-  //     {
-  //       key: "reports",
-  //       label: "Reports",
-  //       icon: <FileTextOutlined />,
-  //       children: [
-  //         {
-  //           key: "daily",
-  //           label: "Daily Reports",
-  //           path: "/dashboard/reports/daily",
-  //         },
-  //         {
-  //           key: "weekly",
-  //           label: "Weekly Reports",
-  //           path: "/dashboard/reports/weekly",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-  // {
-  //   key: "settings",
-  //   label: "Settings",
-  //   icon: <SettingOutlined />,
-  //   children: [
-  //     {
-  //       key: "profile",
-  //       label: "Profile Settings",
-  //       path: "/dashboard/settings/profile",
-  //     },
-  //     {
-  //       key: "security",
-  //       label: "Security",
-  //       path: "/dashboard/settings/security",
-  //     },
-  //     {
-  //       key: "preferences",
-  //       label: "Preferences",
-  //       path: "/dashboard/settings/preferences",
-  //     },
-  //   ],
-  // },
 ];
 
 export const navItems = [
@@ -220,7 +170,7 @@ export const destinations = {
         imgSrc: Ladak,
         alt: "Kashmir",
         location: "Kashmir",
-        route: "",
+        route: "/ladakh",
       },
       {
         title: "Charminar",

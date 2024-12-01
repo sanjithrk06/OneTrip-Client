@@ -46,7 +46,7 @@ export const adminNav = [
         path: "/dashboard/destinations",
       },
       {
-        key: "add-destinations",
+        key: "add-destination",
         label: "Add Destination",
         path: "/dashboard/addDestination",
       },
@@ -61,6 +61,11 @@ export const adminNav = [
         key: "packages",
         label: "Packages",
         path: "/dashboard/packages",
+      },
+      {
+        key: "add-package",
+        label: "Add Package",
+        path: "/dashboard/addPackage",
       },
     ],
   },

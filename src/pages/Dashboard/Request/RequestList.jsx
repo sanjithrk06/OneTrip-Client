@@ -103,7 +103,7 @@ const RequestList = () => {
         }}
       >
         <Title level={3} style={{ margin: 0 }}>
-          Destination Requests
+          Request Destinations
         </Title>
       </div>
       <div

@@ -2,15 +2,25 @@ import React, { useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   UserOutlined,
-  SearchOutlined,
   LogoutOutlined,
+  MenuUnfoldOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu, theme, Avatar, Space, Row, Col, Input } from "antd";
+import {
+  Layout,
+  Menu,
+  Avatar,
+  Space,
+  Row,
+  Col,
+  Button,
+  Drawer,
+  ConfigProvider,
+  theme,
+} from "antd"; // Import theme here
 import { adminNav as items } from "../constants/constant";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Sider } = Layout;
 
-// Flatten menu items to easily find paths
 const flattenMenuItems = (items) => {
   let flattened = {};
 
@@ -32,11 +42,13 @@ const flattenMenuItems = (items) => {
 const DashLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  } = theme.useToken(); // Now it's properly accessed from Ant Design's theme
 
-  // Find the current key based on path
   const findKeyByPath = (pathname) => {
     const paths = flattenMenuItems(items);
     return (
@@ -55,78 +67,105 @@ const DashLayout = () => {
   };
 
   return (
-    <Layout className="min-h-screen">
-      <Sider
-        theme="dark"
-        breakpoint="lg"
-        collapsedWidth="0"
-        width="230"
-        onBreakpoint={(broken) => {
-          console.log("Breakpoint:", broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log("Collapse:", collapsed, type);
-        }}
-        className="shadow-sm"
-      >
-        <div className="p-4 text-center">
-          <span className="text-2xl font-bold tracking-tight text-primary">
-            One Trip
-          </span>
-        </div>
-        <Menu
-          theme="dark"
-          onClick={onClick}
-          selectedKeys={[current]}
-          defaultOpenKeys={[
-            location.pathname.split("/")[2], // Open the current section
-          ]}
-          mode="inline"
-          items={items}
-        />
-      </Sider>
-      <Layout>
-        <Header
-          className="px-4 flex items-center justify-end align-middle"
-          style={{
-            background: colorBgContainer,
-          }}
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#f67009",
+          colorInfo: "#f67009",
+        },
+      }}
+    >
+      <Layout className="h-screen" style={{ overflow: "hidden" }}>
+        {/* Sider for desktop */}
+        <Sider
+          theme="light"
+          breakpoint="lg"
+          collapsedWidth="0"
+          width="230"
+          className="shadow-sm hidden lg:block"
         >
-          <Row align="end">
-            <Col span={8}>
-              <Input placeholder="Search" prefix={<SearchOutlined />} />
-            </Col>
-            <Col span={16}>
-              <Space
-                size="large"
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar icon={<UserOutlined />} />
-                <LogoutOutlined />
-              </Space>
-            </Col>
-          </Row>
-        </Header>
-        <Content className="mx-4 my-4">
-          <div
+          <div className="p-4 text-center">
+            <span className="text-2xl font-bold tracking-tight text-primary">
+              One Trip
+            </span>
+          </div>
+          <Menu
+            theme="light"
+            onClick={onClick}
+            selectedKeys={[current]}
+            defaultOpenKeys={[location.pathname.split("/")[2]]}
+            mode="inline"
+            items={items}
+          />
+        </Sider>
+
+        {/* Drawer for mobile */}
+        <Drawer
+          title="One Trip"
+          placement="left"
+          onClose={() => setDrawerVisible(false)}
+          open={drawerVisible}
+          styles={{ body: { padding: 0 } }}
+        >
+          <Menu
+            theme="light"
+            onClick={(e) => {
+              onClick(e);
+              setDrawerVisible(false); // Close drawer on menu selection
+            }}
+            selectedKeys={[current]}
+            mode="inline"
+            items={items}
+          />
+        </Drawer>
+
+        <Layout>
+          {/* Header */}
+          <Header
+            className="px-4 flex items-center justify-between lg:justify-end"
             style={{
-              padding: 24,
-              minHeight: 360,
-              borderRadius: borderRadiusLG,
+              background: colorBgContainer,
             }}
           >
-            <Outlet />
-          </div>
-        </Content>
-        <Footer className="text-center">
-          One Trip ©{new Date().getFullYear()}
-        </Footer>
+            {/* Mobile menu toggle */}
+            <Button
+              type="text"
+              icon={<MenuUnfoldOutlined />}
+              className="lg:hidden"
+              onClick={() => setDrawerVisible(true)}
+            />
+            <Row align="end" className="w-full lg:w-auto">
+              <Col span={16} className="lg:flex mr-5">
+                <Space
+                  size="large"
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
+                >
+                  <Avatar icon={<UserOutlined />} />
+                  <LogoutOutlined />
+                </Space>
+              </Col>
+            </Row>
+          </Header>
+
+          {/* Content */}
+          <Content className="mx-4 my-4 mb-0 custom-hide-scrollbar">
+            <div
+              className="p-4 md:p-8"
+              style={{
+                minHeight: 360,
+                borderRadius: borderRadiusLG,
+              }}
+            >
+              <Outlet />
+            </div>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </ConfigProvider>
   );
 };
 

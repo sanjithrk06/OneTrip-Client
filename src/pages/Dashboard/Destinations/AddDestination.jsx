@@ -58,7 +58,7 @@ const AddDestination = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }} className=" text-slate-900 font-medium">
+    <div style={{ padding: "0px" }} className=" text-slate-900 font-medium">
       <div
         style={{
           marginBottom: "20px",
@@ -172,9 +172,6 @@ const AddDestination = () => {
                 name="coverPicture"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                // rules={[
-                //   { required: true, message: "Please upload a cover picture!" },
-                // ]}
                 style={{ width: "100%" }}
               >
                 <Upload

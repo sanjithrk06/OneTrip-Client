@@ -162,11 +162,13 @@ const Destinations = () => {
           width: "100%",
           justifyContent: "space-between",
         }}
+        className=" flex flex-col items-start sm:flex-row"
       >
-        <Title level={3} style={{ margin: 0 }}>
+        <Title align="start" level={3} style={{ margin: 0 }}>
           Destinations
         </Title>
         <Button
+          align="start"
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => navigate("/dashboard/addDestination")}
@@ -192,6 +194,8 @@ const Destinations = () => {
           pageSizeOptions: ["5", "10", "20"],
         }}
         loading={loading}
+        scroll={{ x: "max-content" }}
+        responsive={{ xs: 1, sm: 2, md: 3, lg: 4 }}
       />
 
       <Modal

@@ -9,6 +9,8 @@ import {
   Image,
   Tag,
   message,
+  Row,
+  Col,
 } from "antd";
 import {
   PlusOutlined,
@@ -39,7 +41,6 @@ const Packages = () => {
   const fetchPackages = async () => {
     try {
       const response = await axios.get("http://localhost:5001/api/package");
-      // Add serial number to each package
       const packagesWithKeys = response.data.map((pkg, index) => ({
         ...pkg,
         key: pkg._id,
@@ -141,7 +142,7 @@ const Packages = () => {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:5001/api/packages/${selectedRecord._id}`
+        `http://localhost:5001/api/package/${selectedRecord._id}`
       );
       await fetchPackages();
       setIsDeleteModalOpen(false);
@@ -160,11 +161,13 @@ const Packages = () => {
           width: "100%",
           justifyContent: "space-between",
         }}
+        className=" flex flex-col items-start sm:flex-row"
       >
-        <Title level={3} style={{ margin: 0 }}>
+        <Title align="start" level={3} style={{ margin: 0 }}>
           Packages
         </Title>
         <Button
+          align="start"
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => navigate("/dashboard/addPackage")}
@@ -190,6 +193,8 @@ const Packages = () => {
           pageSizeOptions: ["5", "10", "20"],
         }}
         loading={loading}
+        scroll={{ x: "max-content" }}
+        responsive
       />
 
       <Modal

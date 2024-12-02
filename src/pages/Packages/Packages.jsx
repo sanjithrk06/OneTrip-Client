@@ -62,7 +62,6 @@ const Packages = () => {
               key={index}
               image={pkg.image}
               title={pkg.name}
-              location={pkg.location}
               type={pkg.tourType}
               language={pkg.languages}
             />

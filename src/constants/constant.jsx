@@ -118,7 +118,7 @@ export const KindsOfDestDetails = {
       title: "Hill Stations",
       imgSrc: card2,
       alt: "Image of Hill Station",
-      route: "hill-stations",
+      route: "hillStation",
     },
     {
       id: 3,

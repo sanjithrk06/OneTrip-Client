@@ -29,6 +29,7 @@ const AddPackage = () => {
 
       const formData = new FormData();
 
+      formData.append("packageId", values.id);
       formData.append("name", values.name);
       formData.append("location", JSON.stringify(values.location));
       formData.append("nights", values.nights);
@@ -120,18 +121,18 @@ const AddPackage = () => {
               }}
             >
               <Row gutter={16}>
-                <Col span={16}>
+                <Col span={12}>
                   <Form.Item
-                    label="Package Name"
-                    name="name"
+                    label="Package ID"
+                    name="id"
                     rules={[
                       { required: true, message: "Please input the name!" },
                     ]}
                   >
-                    <Input className="font-normal" placeholder="Package Name" />
+                    <Input className="font-normal" placeholder="OTPXXX" />
                   </Form.Item>
                 </Col>
-                <Col span={8}>
+                <Col span={12}>
                   <Form.Item
                     label="Tour Type"
                     name="tourType"
@@ -149,6 +150,13 @@ const AddPackage = () => {
                   </Form.Item>
                 </Col>
               </Row>
+              <Form.Item
+                label="Package Name"
+                name="name"
+                rules={[{ required: true, message: "Please input the name!" }]}
+              >
+                <Input className="font-normal" placeholder="Package Name" />
+              </Form.Item>
               <Row gutter={16}>
                 <Col span={12}>
                   <Form.Item

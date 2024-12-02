@@ -9,13 +9,13 @@ export { default as VerifyEmail } from "./AuthPages/VerifyEmail";
 export { default as HomePage } from "./HomePage";
 
 // Destinations
-export { default as KindsOfDest } from "./KindsOfDest";
-export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
-export { default as Destination } from "./DestinationsPages/Destination";
-export { default as HiddenSpot } from "./DestinationsPages/HiddenSpot";
+// export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
+// export { default as Destination } from "./DestinationsPages/Destination";
+// export { default as HiddenSpot } from "./DestinationsPages/HiddenSpot";
+export { default as KindsDestination } from "./Destinations/KindsDestionation";
 
 // Packages
-export { default as Packages } from "./PackagesPages/Packages";
+export { default as Packages } from "./Packages/Packages";
 
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";

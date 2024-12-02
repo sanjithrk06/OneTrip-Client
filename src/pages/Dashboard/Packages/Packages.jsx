@@ -44,10 +44,9 @@ const Packages = () => {
       const packagesWithKeys = response.data.map((pkg, index) => ({
         ...pkg,
         key: pkg._id,
-        pno: `P${(index + 1).toString().padStart(3, "0")}`, // Creates P001, P002, etc.
       }));
-      setData(packagesWithKeys);
-      setFilteredData(packagesWithKeys);
+      setData(response.data);
+      setFilteredData(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Fetch error:", error);
@@ -58,12 +57,11 @@ const Packages = () => {
 
   const columns = [
     {
-      title: "P.No",
-      dataIndex: "pno",
-      key: "pno",
+      title: "PKG ID",
+      dataIndex: "packageId",
+      key: "packageId",
       width: 100,
       sorter: (a, b) => a.pno.localeCompare(b.pno),
-      render: (text) => <span style={{ fontWeight: 500 }}>{text}</span>,
     },
     {
       title: "Name",

@@ -24,10 +24,6 @@ import {
 import {
   AppstoreOutlined,
   HomeOutlined,
-  SettingOutlined,
-  UserOutlined,
-  FileTextOutlined,
-  TeamOutlined,
   EnvironmentOutlined,
   FundViewOutlined,
 } from "@ant-design/icons";
@@ -50,9 +46,26 @@ export const adminNav = [
         path: "/dashboard/destinations",
       },
       {
-        key: "add-destinations",
+        key: "add-destination",
         label: "Add Destination",
         path: "/dashboard/addDestination",
+      },
+    ],
+  },
+  {
+    key: "package",
+    label: "Package",
+    icon: <AppstoreOutlined />,
+    children: [
+      {
+        key: "packages",
+        label: "Packages",
+        path: "/dashboard/packages",
+      },
+      {
+        key: "add-package",
+        label: "Add Package",
+        path: "/dashboard/addPackage",
       },
     ],
   },
@@ -68,64 +81,6 @@ export const adminNav = [
       },
     ],
   },
-  // {
-  //   key: "management",
-  //   label: "Management",
-  //   icon: <AppstoreOutlined />,
-  //   children: [
-  //     {
-  //       key: "users",
-  //       label: "Users",
-  //       icon: <UserOutlined />,
-  //       path: "/dashboard/users",
-  //     },
-  //     {
-  //       key: "teams",
-  //       label: "Teams",
-  //       icon: <TeamOutlined />,
-  //       path: "/dashboard/teams",
-  //     },
-  //     {
-  //       key: "reports",
-  //       label: "Reports",
-  //       icon: <FileTextOutlined />,
-  //       children: [
-  //         {
-  //           key: "daily",
-  //           label: "Daily Reports",
-  //           path: "/dashboard/reports/daily",
-  //         },
-  //         {
-  //           key: "weekly",
-  //           label: "Weekly Reports",
-  //           path: "/dashboard/reports/weekly",
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
-  // {
-  //   key: "settings",
-  //   label: "Settings",
-  //   icon: <SettingOutlined />,
-  //   children: [
-  //     {
-  //       key: "profile",
-  //       label: "Profile Settings",
-  //       path: "/dashboard/settings/profile",
-  //     },
-  //     {
-  //       key: "security",
-  //       label: "Security",
-  //       path: "/dashboard/settings/security",
-  //     },
-  //     {
-  //       key: "preferences",
-  //       label: "Preferences",
-  //       path: "/dashboard/settings/preferences",
-  //     },
-  //   ],
-  // },
 ];
 
 export const navItems = [
@@ -163,7 +118,7 @@ export const KindsOfDestDetails = {
       title: "Hill Stations",
       imgSrc: card2,
       alt: "Image of Hill Station",
-      route: "hill-stations",
+      route: "hillStation",
     },
     {
       id: 3,

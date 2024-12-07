@@ -1,8 +1,8 @@
 // React router component
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
 // Layout Components import
-import { Footer, Header } from '../components'
+import { Footer, Header } from "../components";
 
 const HomeLayout = () => {
   return (
@@ -11,7 +11,7 @@ const HomeLayout = () => {
       <Outlet />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default HomeLayout
+export default HomeLayout;

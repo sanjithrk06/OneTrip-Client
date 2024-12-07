@@ -7,7 +7,7 @@
 :root {
   font-family: "Poppins", sans-serif;
   color-scheme: dark;
-  --PrimaryColor: hsl(26, 93%, 50%);
+  --PrimaryColor: #f67009;
   --HoverColor: hsl(26, 90%, 42%);
   --whiteColor: hsl(0, 0%, 100%);
   --blackColor: hsl(0, 0%, 18%);
@@ -36,4 +36,38 @@ body {
   background: hsl(26, 93%, 50%);
   border-radius: 10px;
   cursor: pointer;
+}
+
+.custom-hide-scrollbar {
+  overflow-y: scroll; /* Allow scrolling */
+}
+
+.custom-hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
+}
+
+.custom-hide-scrollbar {
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+/* Prevent horizontal scrolling */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Ensure that Layout takes up full screen */
+.ant-layout {
+  height: 100vh;
+  overflow: hidden; /* Prevent both vertical and horizontal scrolling */
+}
+
+/* For the content inside Layout, ensure it doesn't cause overflow */
+.ant-layout-content {
+  height: calc(100vh - 64px); /* Adjust based on header height */
+  overflow: auto; /* Allows vertical scrolling if needed */
 }

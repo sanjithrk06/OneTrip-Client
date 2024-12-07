@@ -6,11 +6,9 @@ import {
 } from "react-router-dom";
 import { DashLayout, HomeLayout } from "../layouts";
 import {
-  Destination,
+  KindsDestination,
   HomePage,
   ADashboard,
-  KindsOfDest,
-  ListOfDest,
   Login,
   Signup,
   VerifyEmail,
@@ -19,13 +17,15 @@ import {
   ADestinations,
   AAddDestination,
   ARequestList,
-  HiddenSpot,
   Packages,
+  APackages,
+  AAddPackage,
   // PaymentPage,
   // SuccessPage,
   // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
+import Destinations from "../pages/Destinations/Destinations";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -95,20 +95,21 @@ const router = createBrowserRouter(
 
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
-        <Route
+        {/* <Route
           path="hiddenSpot"
           element={
             <ProtectedRoute>
               <HiddenSpot />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route path="packages" element={<Packages />} />
         {/* Destinations Path */}
         <Route path="destinations">
-          <Route index element={<KindsOfDest />} />
-          <Route path=":category" element={<ListOfDest />} />
-          <Route path=":category/:destinationName" element={<Destination />} />
+          <Route index element={<KindsDestination />} />
+          <Route path=":category" element={<Destinations />} />
+          {/* <Route path=":category" element={<ListOfDest />} />
+          <Route path=":category/:destinationName" element={<Destination />} /> */}
         </Route>
       </Route>
 
@@ -116,6 +117,8 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="packages" element={<APackages />} />
+        <Route path="addPackage" element={<AAddPackage />} />
         <Route path="requests" element={<ARequestList />} />
       </Route>
 
@@ -124,7 +127,6 @@ const router = createBrowserRouter(
         <Route path="/success" element={<SuccessPage />} />
         <Route path="/cancel" element={<CancelPage />} />
       </Route> */}
-    
     </>
   ),
   {

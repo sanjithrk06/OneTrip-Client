@@ -9,6 +9,8 @@ import {
   Image,
   Tag,
   message,
+  Row,
+  Col,
 } from "antd";
 import {
   PlusOutlined,
@@ -22,7 +24,7 @@ import axios from "axios";
 
 const { Title } = Typography;
 
-const Destinations = () => {
+const Packages = () => {
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [pageSize, setPageSize] = useState(5);
@@ -33,70 +35,65 @@ const Destinations = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchDestinations();
+    fetchPackages();
   }, []);
 
-  const fetchDestinations = async () => {
+  const fetchPackages = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5001/api/destinationPage/"
-      );
-      // Add serial number to each destination
-      const destinationsWithKeys = response.data.data.map((dest, index) => ({
-        ...dest,
-        key: dest._id,
-        dno: `D${(index + 1).toString().padStart(3, "0")}`, // Creates D001, D002, etc.
+      const response = await axios.get("http://localhost:5001/api/package");
+      const packagesWithKeys = response.data.map((pkg, index) => ({
+        ...pkg,
+        key: pkg._id,
       }));
-      setData(destinationsWithKeys);
-      setFilteredData(destinationsWithKeys);
+      setData(response.data);
+      setFilteredData(response.data);
       setLoading(false);
     } catch (error) {
       console.error("Fetch error:", error);
-      message.error("Failed to fetch destinations");
+      message.error("Failed to fetch packages");
       setLoading(false);
     }
   };
 
   const columns = [
     {
-      title: "D.No",
-      dataIndex: "dno",
-      key: "dno",
+      title: "PKG ID",
+      dataIndex: "packageId",
+      key: "packageId",
       width: 100,
-      sorter: (a, b) => a.dno.localeCompare(b.dno),
-      render: (text) => <span style={{ fontWeight: 500 }}>{text}</span>,
+      sorter: (a, b) => a.pno.localeCompare(b.pno),
     },
     {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
-      sorter: (a, b) => (a.title || "").localeCompare(b.title || ""),
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => (a.name || "").localeCompare(b.name || ""),
     },
     {
-      title: "Image",
-      dataIndex: "imgSrc",
-      key: "imgSrc",
-      render: (imgSrc) => (
-        <Image
-          src={imgSrc}
-          alt="destination"
-          width={50}
-          height={50}
-          style={{ objectFit: "cover", borderRadius: "4px" }}
-        />
+      title: "Tour Type",
+      dataIndex: "tourType",
+      key: "tourType",
+      render: (tourType) => <Tag color="gold">{tourType}</Tag>,
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (price) => `₹${price}`,
+    },
+    {
+      title: "Languages",
+      dataIndex: "languages",
+      key: "languages",
+      render: (languages) => (
+        <div>
+          {languages.map((lang, index) => (
+            <Tag color="blue" key={index}>
+              {lang}
+            </Tag>
+          ))}
+        </div>
       ),
-    },
-    {
-      title: "Stays",
-      dataIndex: "stays",
-      key: "stays",
-      render: (stays) => <Tag color="blue">{stays?.length || 0} stays</Tag>,
-    },
-    {
-      title: "Spots",
-      dataIndex: "spots",
-      key: "spots",
-      render: (spots) => <Tag color="green">{spots?.length || 0} spots</Tag>,
     },
     {
       title: "Actions",
@@ -119,9 +116,9 @@ const Destinations = () => {
     const value = event.target.value.toLowerCase();
     const filteredResults = data.filter(
       (item) =>
-        item.dno.toLowerCase().includes(value) ||
+        item.pno.toLowerCase().includes(value) ||
         item.name?.toLowerCase().includes(value) ||
-        item.title?.toLowerCase().includes(value)
+        item.tourType?.toLowerCase().includes(value)
     );
     setFilteredData(filteredResults);
   };
@@ -132,7 +129,7 @@ const Destinations = () => {
   };
 
   const handleEdit = (record) => {
-    // navigate(`/dashboard/edit-destination/${record._id}`);
+    navigate(`/dashboard/edit-package/${record._id}`);
   };
 
   const handleDelete = (record) => {
@@ -143,14 +140,14 @@ const Destinations = () => {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:5001/api/destinationPage/${selectedRecord.name}`
+        `http://localhost:5001/api/package/${selectedRecord._id}`
       );
-      await fetchDestinations();
+      await fetchPackages();
       setIsDeleteModalOpen(false);
-      message.success("Destination deleted successfully");
+      message.success("Package deleted successfully");
     } catch (error) {
       console.error("Delete error:", error);
-      message.error("Failed to delete destination");
+      message.error("Failed to delete package");
     }
   };
 
@@ -165,20 +162,20 @@ const Destinations = () => {
         className=" flex flex-col items-start sm:flex-row"
       >
         <Title align="start" level={3} style={{ margin: 0 }}>
-          Destinations
+          Packages
         </Title>
         <Button
           align="start"
           type="primary"
           icon={<PlusOutlined />}
-          onClick={() => navigate("/dashboard/addDestination")}
+          onClick={() => navigate("/dashboard/addPackage")}
         >
-          Add Destination
+          Add Package
         </Button>
       </Space>
 
       <Input
-        placeholder="Search destinations..."
+        placeholder="Search packages..."
         prefix={<SearchOutlined />}
         onChange={handleSearch}
         style={{ marginBottom: 16, maxWidth: 400 }}
@@ -195,11 +192,11 @@ const Destinations = () => {
         }}
         loading={loading}
         scroll={{ x: "max-content" }}
-        responsive={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+        responsive
       />
 
       <Modal
-        title="Destination Details"
+        title="Package Details"
         open={isViewModalOpen}
         onCancel={() => setIsViewModalOpen(false)}
         footer={[
@@ -223,21 +220,21 @@ const Destinations = () => {
               <div>
                 <h3 style={{ fontWeight: "bold" }}>Basic Information</h3>
                 <p>
-                  <strong>D.No:</strong> {selectedRecord.dno}
+                  <strong>P.No:</strong> {selectedRecord.pno}
                 </p>
                 <p>
                   <strong>Name:</strong> {selectedRecord.name}
                 </p>
                 <p>
-                  <strong>Title:</strong> {selectedRecord.title}
+                  <strong>Tour Type:</strong> {selectedRecord.tourType}
                 </p>
                 <p>
-                  <strong>Subtitle:</strong> {selectedRecord.subTitle}
+                  <strong>Price:</strong> ₹{selectedRecord.price}
                 </p>
               </div>
               <div>
                 <Image
-                  src={selectedRecord.imgSrc}
+                  src={selectedRecord.image || ""}
                   alt={selectedRecord.name}
                   style={{
                     width: "100%",
@@ -250,68 +247,21 @@ const Destinations = () => {
             </div>
 
             <div>
-              <h3 style={{ fontWeight: "bold" }}>About</h3>
-              <p>{selectedRecord.about}</p>
+              <h3 style={{ fontWeight: "bold" }}>Description</h3>
+              <p>{selectedRecord.description}</p>
             </div>
 
-            {selectedRecord.stays?.length > 0 && (
-              <div>
-                <h3 style={{ fontWeight: "bold" }}>
-                  Stays ({selectedRecord.stays.length})
-                </h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "8px",
-                  }}
-                >
-                  {selectedRecord.stays.map((stay, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        padding: "8px",
-                        border: "1px solid #f0f0f0",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      <p style={{ fontWeight: "500" }}>{stay.name}</p>
-                      <p>Price: {stay.price}</p>
-                      <p>Capacity: {stay.capacity} guests</p>
-                    </div>
-                  ))}
+            <div>
+              <h3 style={{ fontWeight: "bold" }}>Agenda</h3>
+              {selectedRecord.agenda?.map((day, index) => (
+                <div key={index} style={{ marginBottom: "16px" }}>
+                  <strong>{day.title}</strong>
+                  <ul>
+                    <li>{day.description}</li>
+                  </ul>
                 </div>
-              </div>
-            )}
-
-            {selectedRecord.spots?.length > 0 && (
-              <div>
-                <h3 style={{ fontWeight: "bold" }}>
-                  Spots ({selectedRecord.spots.length})
-                </h3>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "8px",
-                  }}
-                >
-                  {selectedRecord.spots.map((spot, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        padding: "8px",
-                        border: "1px solid #f0f0f0",
-                        borderRadius: "4px",
-                      }}
-                    >
-                      <p style={{ fontWeight: "500" }}>{spot.title}</p>
-                      <p>{spot.location}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
         )}
       </Modal>
@@ -324,10 +274,10 @@ const Destinations = () => {
         okText="Delete"
         okButtonProps={{ danger: true }}
       >
-        <p>Are you sure you want to delete this destination?</p>
+        <p>Are you sure you want to delete this package?</p>
       </Modal>
     </div>
   );
 };
 
-export default Destinations;
+export default Packages;

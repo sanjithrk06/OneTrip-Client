@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
-const Hero = ({ header, desc, img }) => {
+const HeroCard = ({ header, desc, img }) => {
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
@@ -39,4 +39,4 @@ const Hero = ({ header, desc, img }) => {
   );
 };
 
-export default Hero;
+export default HeroCard;

@@ -1,5 +1,5 @@
-import { GHero } from "../../components";
-import { munnar } from "../../assets";
+import { HeroCard } from "../components";
+import { munnar } from "../assets";
 import { useState } from "react";
 
 const HiddenSpot = () => {
@@ -9,7 +9,7 @@ const HiddenSpot = () => {
 
   return (
     <>
-      <GHero
+      <HeroCard
         header={"Suggest Hidden Spot"}
         desc={"Discover the Undiscovered"}
         img={munnar}

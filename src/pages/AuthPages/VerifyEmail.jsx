@@ -145,7 +145,7 @@ const VerifyEmail = () => {
 
                       <div className="mt-1 text-end">
                         <Link
-                          to={"/signup"}
+                          to={"/auth/signup"}
                           className="inline-block text-xs text-end hover:underline font-medium text-primary hover:text-primary"
                         >
                           Back to signup

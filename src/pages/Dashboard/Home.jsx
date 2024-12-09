@@ -8,11 +8,11 @@ const Home = () => {
       <Col span={6}>
         <Card bordered={false}>
           <Statistic
-            title="Total Places"
-            value={53}
+            title="Destinations"
+            value={6}
             precision={0}
             valueStyle={{
-              color: "#3f8600",
+              color: "#f67009",
             }}
             suffix=" Places"
           />

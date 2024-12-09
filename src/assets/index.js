@@ -26,6 +26,11 @@ import h1 from "./images/Hotels/a9.jpg";
 import h2 from "./images/Hotels/a10.jpg";
 import h3 from "./images/Hotels/a11.avif";
 
+// Ladak
+import l1 from "./images/ladak/l2.jpg"
+import l2 from "./images/ladak/l4.jpg"
+import l3 from "./images/ladak/l8.webp"
+
 export {
   HeroBg,
   LoginImg,
@@ -50,4 +55,7 @@ export {
   h1,
   h2,
   h3,
+  l1,
+  l2,
+  l3
 };

@@ -12,6 +12,7 @@ import {
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const { TextArea } = Input;
 
@@ -19,15 +20,37 @@ const AddDestination = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [galleryImages, setGalleryImages] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const normFile = (e) => {
     if (Array.isArray(e)) return e;
     return e?.fileList;
   };
 
-  const handleSubmit = (values) => {
-    console.log("Form Values:", values);
-    // Add your API request here to save the data
+  const handleSubmit = async (values) => {
+    try {
+      setIsSubmitting(true);
+
+      const payload = {
+        name: values.destinationId,
+        title: values.title,
+        subTitle: values.subTitle,
+        about: values.about,
+      };
+
+      const response = await axios.post(
+        "http://localhost:5001/api/destinationPage/create",
+        payload
+      );
+
+      message.success("Destination created successfully!");
+      navigate("/dashboard/destinations");
+    } catch (error) {
+      console.error("Error creating destination:", error);
+      message.error("Failed to create destination. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleGalleryChange = ({ fileList }) => {
@@ -35,7 +58,7 @@ const AddDestination = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "0px" }} className=" text-slate-900 font-medium">
       <div
         style={{
           marginBottom: "20px",
@@ -43,13 +66,22 @@ const AddDestination = () => {
           justifyContent: "space-between",
         }}
       >
-        <h1 className="font-semibold text-2xl">Add Destination</h1>
+        <div className=" flex flex-col px-2">
+          <h1 className="font-bold text-2xl text-gray-800">Add Destination</h1>
+          <p className=" font-medium text-gray-500">
+            Add exciting new places to explore.
+          </p>
+        </div>
         <div className="flex gap-3">
-          <Button onClick={() => navigate(-1)}>Cancel</Button>
+          <Button size="medium" onClick={() => navigate(-1)}>
+            Cancel
+          </Button>
           <Button
             type="primary"
+            size="medium"
             icon={<PlusOutlined />}
             onClick={() => form.submit()}
+            loading={isSubmitting}
           >
             Add
           </Button>
@@ -72,9 +104,14 @@ const AddDestination = () => {
                   <Form.Item
                     label="Destination ID"
                     name="destinationId"
-                    initialValue="OTD"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input the unique id!",
+                      },
+                    ]}
                   >
-                    <Input disabled />
+                    <Input className=" font-normal" placeholder="D001" />
                   </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -85,12 +122,18 @@ const AddDestination = () => {
                       { required: true, message: "Please input the title!" },
                     ]}
                   >
-                    <Input />
+                    <Input
+                      className=" font-normal"
+                      placeholder="Destination Title"
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
                   <Form.Item label="Subtitle" name="subTitle">
-                    <Input />
+                    <Input
+                      className=" font-normal"
+                      placeholder="Destination Sub-Title"
+                    />
                   </Form.Item>
                 </Col>
                 <Col span={24}>
@@ -104,7 +147,11 @@ const AddDestination = () => {
                       },
                     ]}
                   >
-                    <TextArea rows={4} />
+                    <TextArea
+                      className=" font-normal"
+                      placeholder="About the Destination"
+                      rows={8}
+                    />
                   </Form.Item>
                 </Col>
               </Row>
@@ -125,9 +172,6 @@ const AddDestination = () => {
                 name="coverPicture"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
-                rules={[
-                  { required: true, message: "Please upload a cover picture!" },
-                ]}
                 style={{ width: "100%" }}
               >
                 <Upload

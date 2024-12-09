@@ -1,4 +1,3 @@
-// Router.js
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -7,11 +6,9 @@ import {
 } from "react-router-dom";
 import { DashLayout, HomeLayout } from "../layouts";
 import {
-  Destination,
+  KindsDestination,
   HomePage,
   ADashboard,
-  KindsOfDest,
-  ListOfDest,
   Login,
   Signup,
   VerifyEmail,
@@ -19,19 +16,28 @@ import {
   ResetPassword,
   ADestinations,
   AAddDestination,
+  ARequestList,
+  Packages,
+  APackages,
+  AAddPackage,
+  Package,
+  // PaymentPage,
+  // SuccessPage,
+  // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
+import Destinations from "../pages/Destinations/Destinations";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useAuthStore();
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth/login" replace />;
   }
 
   if (!user?.isVerified) {
-    return <Navigate to="/verify-email" replace />;
+    return <Navigate to="/auth/verify-email" replace />;
   }
 
   return children;
@@ -87,13 +93,25 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
+        {/* <Route
+          path="hiddenSpot"
+          element={
+            <ProtectedRoute>
+              <HiddenSpot />
+            </ProtectedRoute>
+          }
+        /> */}
+        <Route path="packages" element={<Packages />} />
+        <Route path="package/:packageId" element={<Package />} />
         {/* Destinations Path */}
         <Route path="destinations">
-          <Route index element={<KindsOfDest />} />
-          <Route path=":category" element={<ListOfDest />} />
-          <Route path="taj" element={<Destination />} />
+          <Route index element={<KindsDestination />} />
+          <Route path=":category" element={<Destinations />} />
+          {/* <Route path=":category" element={<ListOfDest />} />
+          <Route path=":category/:destinationName" element={<Destination />} /> */}
         </Route>
       </Route>
 
@@ -101,7 +119,16 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="packages" element={<APackages />} />
+        <Route path="addPackage" element={<AAddPackage />} />
+        <Route path="requests" element={<ARequestList />} />
       </Route>
+
+      {/* Payment  route*/}
+      {/* <Route path="/payment" element={<PaymentPage/>}>
+        <Route path="/success" element={<SuccessPage />} />
+        <Route path="/cancel" element={<CancelPage />} />
+      </Route> */}
     </>
   ),
   {

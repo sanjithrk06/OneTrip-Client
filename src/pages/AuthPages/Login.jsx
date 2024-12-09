@@ -174,7 +174,7 @@ const Login = () => {
 
                       <div className="pt-1 flex items-center justify-between gap-0">
                         <Link
-                          to={"/forgot-password"}
+                          to={"/auth/forgot-password"}
                           className="inline-block text-xs font-medium text-primary hover:text-primary"
                         >
                           Forgot Password?
@@ -251,7 +251,7 @@ const Login = () => {
                 <div className="grow bg-gray-50 p-5 pt-0 text-center text-sm md:px-16">
                   Don’t have an account yet?{" "}
                   <Link
-                    to={"/signup"}
+                    to={"/auth/signup"}
                     className="font-medium text-primary hover:text-rose-400"
                   >
                     Create account

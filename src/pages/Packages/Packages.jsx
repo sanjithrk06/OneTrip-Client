@@ -63,7 +63,8 @@ const Packages = () => {
               image={pkg.image}
               title={pkg.name}
               type={pkg.tourType}
-              language={pkg.languages}
+              location={pkg.location}
+              route={`/package/${pkg.packageId}`}
             />
           ))
         )}

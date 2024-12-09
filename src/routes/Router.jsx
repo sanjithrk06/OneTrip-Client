@@ -20,6 +20,7 @@ import {
   Packages,
   APackages,
   AAddPackage,
+  Package,
   // PaymentPage,
   // SuccessPage,
   // CancelPage
@@ -104,6 +105,7 @@ const router = createBrowserRouter(
           }
         /> */}
         <Route path="packages" element={<Packages />} />
+        <Route path="package/:packageId" element={<Package />} />
         {/* Destinations Path */}
         <Route path="destinations">
           <Route index element={<KindsDestination />} />

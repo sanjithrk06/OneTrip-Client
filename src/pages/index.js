@@ -16,6 +16,7 @@ export { default as KindsDestination } from "./Destinations/KindsDestionation";
 
 // Packages
 export { default as Packages } from "./Packages/Packages";
+export { default as Package } from "./Packages/Package";
 
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";

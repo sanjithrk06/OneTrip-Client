@@ -161,14 +161,14 @@ export const destinations = {
         imgSrc: redFort,
         alt: "Delhi",
         location: "Delhi",
-        route: "",
+        route: "/delhi",
       },
       {
         title: "Gateway Of India",
         imgSrc: GOI,
         alt: "Maharashtra",
         location: "Maharashtra",
-        route: "",
+        route: "/GOI",
       },
       {
         title: "Ladakh",

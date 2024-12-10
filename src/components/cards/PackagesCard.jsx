@@ -4,6 +4,8 @@ import { MapPinIcon } from "lucide-react";
 const PackagesCard = ({ image, title, location, type, route }) => {
   const navigate = useNavigate();
 
+  console.log("Locations :", location);
+
   const handleCardClick = () => {
     navigate(route);
   };
@@ -21,7 +23,6 @@ const PackagesCard = ({ image, title, location, type, route }) => {
           alt={title || "Package Image"} // Fallback alt text
         />
       </div>
-      {/* Border Decoration */}
       {/* Title and Type Section */}
       <div className="pt-4 px-3 flex items-center justify-between space-x-4">
         <h3 className="text-base font-bold text-black cursor-pointer transition duration-300 hover:text-[#FA5252]">
@@ -37,7 +38,7 @@ const PackagesCard = ({ image, title, location, type, route }) => {
       {/* Location Section */}
       <div className="pt-4 px-3 flex items-center space-x-2">
         <MapPinIcon className="text-orange-500 size-4" />
-        <p className="text-sm font-medium text-gray-700">
+        <p className=" text-xs font-medium text-gray-700">
           {Array.isArray(location) ? location.join(", ") : location}
         </p>
       </div>

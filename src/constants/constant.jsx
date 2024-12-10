@@ -26,6 +26,7 @@ import {
   HomeOutlined,
   EnvironmentOutlined,
   FundViewOutlined,
+  TagOutlined,
 } from "@ant-design/icons";
 
 export const adminNav = [
@@ -49,6 +50,23 @@ export const adminNav = [
         key: "add-destination",
         label: "Add Destination",
         path: "/dashboard/addDestination",
+      },
+    ],
+  },
+  {
+    key: "category",
+    label: "Category",
+    icon: <TagOutlined />,
+    children: [
+      {
+        key: "categories",
+        label: "Categories",
+        path: "/dashboard/category",
+      },
+      {
+        key: "add-category",
+        label: "Add Category",
+        path: "/dashboard/addcategory",
       },
     ],
   },

@@ -20,6 +20,8 @@ import {
   Packages,
   APackages,
   AAddPackage,
+  ACategory,
+  AAddCategory,
   // PaymentPage,
   // SuccessPage,
   // CancelPage
@@ -117,6 +119,8 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="category" element={<ACategory />} />
+        <Route path="addcategory" element={<AAddCategory />} />
         <Route path="packages" element={<APackages />} />
         <Route path="addPackage" element={<AAddPackage />} />
         <Route path="requests" element={<ARequestList />} />

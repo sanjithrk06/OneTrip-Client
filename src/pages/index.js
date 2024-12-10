@@ -11,12 +11,13 @@ export { default as HomePage } from "./HomePage";
 // Destinations
 // export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
 // export { default as Destination } from "./DestinationsPages/Destination";
-// export { default as HiddenSpot } from "./DestinationsPages/HiddenSpot";
+export { default as HiddenSpot } from "./HiddenSpot";
 export { default as KindsDestination } from "./Destinations/KindsDestionation";
 
 // Packages
 export { default as Packages } from "./Packages/Packages";
 export { default as Package } from "./Packages/Package";
+export { default as PackageBooking } from "./Packages/PackageBooking";
 
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";

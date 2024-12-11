@@ -20,17 +20,11 @@ import {
   Packages,
   APackages,
   AAddPackage,
-<<<<<<< HEAD
   ACategory,
   AAddCategory,
-=======
   Package,
   PackageBooking,
   HiddenSpot,
->>>>>>> cafb7db7ee15eef6a65f7a6e2c096058bf4f2fd0
-  // PaymentPage,
-  // SuccessPage,
-  // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
 import Destinations from "../pages/Destinations/Destinations";

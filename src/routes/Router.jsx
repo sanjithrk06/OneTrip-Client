@@ -20,9 +20,14 @@ import {
   Packages,
   APackages,
   AAddPackage,
+<<<<<<< HEAD
+  ACategory,
+  AAddCategory,
+=======
   Package,
   PackageBooking,
   HiddenSpot,
+>>>>>>> cafb7db7ee15eef6a65f7a6e2c096058bf4f2fd0
   // PaymentPage,
   // SuccessPage,
   // CancelPage
@@ -121,6 +126,8 @@ const router = createBrowserRouter(
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="category" element={<ACategory />} />
+        <Route path="addcategory" element={<AAddCategory />} />
         <Route path="packages" element={<APackages />} />
         <Route path="addPackage" element={<AAddPackage />} />
         <Route path="requests" element={<ARequestList />} />

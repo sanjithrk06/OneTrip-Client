@@ -13,6 +13,8 @@ export { default as HomePage } from "./HomePage";
 // export { default as Destination } from "./DestinationsPages/Destination";
 export { default as HiddenSpot } from "./HiddenSpot";
 export { default as KindsDestination } from "./Destinations/KindsDestionation";
+export { default as Destinations } from "./Destinations/Destinations";
+export { default as DestinationPage } from "./Destinations/Destination";
 
 // Packages
 export { default as Packages } from "./Packages/Packages";

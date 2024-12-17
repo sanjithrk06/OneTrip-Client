@@ -22,25 +22,35 @@ const AddDestination = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) return e;
-    return e?.fileList;
-  };
-
   const handleSubmit = async (values) => {
     try {
-      setIsSubmitting(true);
-
-      const payload = {
+      // Preparing the data to be sent as JSON
+      const requestData = {
         name: values.destinationId,
         title: values.title,
-        subTitle: values.subTitle,
+        subTitle: values.subTitle || "", // Optional field
         about: values.about,
+        coverPicture:
+          values.coverPicture && values.coverPicture[0]?.originFileObj,
+        gallery: galleryImages.map((file) => file.originFileObj),
+        stays: values.stays || [],
+        spots: values.spots || [],
       };
 
+      // Logging requestData for debugging
+      console.log("Request Data:", requestData);
+
+      setIsSubmitting(true);
+
+      // API Request
       const response = await axios.post(
         "http://localhost:5001/api/destinationPage/create",
-        payload
+        requestData, // Send the data as JSON
+        {
+          headers: {
+            "Content-Type": "application/json", // Sending JSON
+          },
+        }
       );
 
       message.success("Destination created successfully!");
@@ -58,7 +68,7 @@ const AddDestination = () => {
   };
 
   return (
-    <div style={{ padding: "0px" }} className=" text-slate-900 font-medium">
+    <div style={{ padding: "0px" }} className="text-slate-900 font-medium">
       <div
         style={{
           marginBottom: "20px",
@@ -66,9 +76,9 @@ const AddDestination = () => {
           justifyContent: "space-between",
         }}
       >
-        <div className=" flex flex-col px-2">
+        <div className="flex flex-col px-2">
           <h1 className="font-bold text-2xl text-gray-800">Add Destination</h1>
-          <p className=" font-medium text-gray-500">
+          <p className="font-medium text-gray-500">
             Add exciting new places to explore.
           </p>
         </div>
@@ -89,7 +99,6 @@ const AddDestination = () => {
       </div>
 
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        {/* Left Side - ID, Title, Subtitle */}
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={15}>
             <div
@@ -111,7 +120,7 @@ const AddDestination = () => {
                       },
                     ]}
                   >
-                    <Input className=" font-normal" placeholder="D001" />
+                    <Input className="font-normal" placeholder="D001" />
                   </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -123,7 +132,7 @@ const AddDestination = () => {
                     ]}
                   >
                     <Input
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="Destination Title"
                     />
                   </Form.Item>
@@ -131,7 +140,7 @@ const AddDestination = () => {
                 <Col span={24}>
                   <Form.Item label="Subtitle" name="subTitle">
                     <Input
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="Destination Sub-Title"
                     />
                   </Form.Item>
@@ -148,7 +157,7 @@ const AddDestination = () => {
                     ]}
                   >
                     <TextArea
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="About the Destination"
                       rows={8}
                     />
@@ -158,7 +167,6 @@ const AddDestination = () => {
             </div>
           </Col>
 
-          {/* Right Side - Cover Picture and Gallery */}
           <Col xs={24} sm={9}>
             <div
               style={{
@@ -171,14 +179,12 @@ const AddDestination = () => {
                 label="Cover Picture"
                 name="coverPicture"
                 valuePropName="fileList"
-                getValueFromEvent={normFile}
-                style={{ width: "100%" }}
+                getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
               >
                 <Upload
-                  action="/upload.do"
                   listType="picture-card"
                   maxCount={1}
-                  style={{ width: "100%" }}
+                  beforeUpload={() => false}
                 >
                   <button
                     style={{ border: 0, background: "none" }}
@@ -190,7 +196,7 @@ const AddDestination = () => {
                 </Upload>
               </Form.Item>
 
-              <Form.Item label="Gallery Images">
+              <Form.Item label="Gallery Images" name="gallery">
                 <Upload
                   listType="picture-card"
                   multiple
@@ -211,7 +217,6 @@ const AddDestination = () => {
           </Col>
         </Row>
 
-        {/* Stays Section */}
         <div
           style={{
             backgroundColor: "#fff",
@@ -277,7 +282,7 @@ const AddDestination = () => {
                             </Col>
                           </Row>
 
-                          <div className=" flex flex-row justify-between">
+                          <div className="flex flex-row justify-between">
                             <Form.Item
                               {...restField}
                               name={[name, "wifi"]}
@@ -310,7 +315,6 @@ const AddDestination = () => {
           </Form.Item>
         </div>
 
-        {/* Spots Section */}
         <div
           style={{
             backgroundColor: "#fff",

@@ -6,37 +6,29 @@ import { About, DestHero, Gallery, ListCards, Stay } from "../../components";
 
 const DestinationPage = () => {
   const { category, destinationName } = useParams(); // This will now correctly access both parameters
-  const name = destinationName; 
+  const name = destinationName;
   const [destination, setDestination] = useState(null);
 
   useEffect(() => {
     const fetchDestination = async () => {
-      const cachedDestination = "";
-      if (cachedDestination) {
-        setDestination(JSON.parse(cachedDestination));
-        console.log("Using cached data for", name);
-      } else {
-        try {
-          console.log("NO - cache");
-          console.log(name);
-          const response = await axios.post(
-            "http://localhost:5001/api/destinationPage/single-page",
-            { name }
-          );
+      try {
+        console.log(name);
+        const response = await axios.post(
+          "http://localhost:5001/api/destinationPage/single-page",
+          { name }
+        );
+        let { data } = response; // Declare data with 'let' so it can be reassigned
 
-          const { data } = response;
-
-          if (data && data.data) {
-            setDestination(data.data);
-            Cookies.set(name, JSON.stringify(data.data), { expires: 1 });
-            localStorage.setItem(name, JSON.stringify(data.data));
-            console.log("Fetched from API and cached data for", name);
-          } else {
-            console.error("No data received from the API");
-          }
-        } catch (error) {
-          console.error("Error fetching destination:", error);
+        if (data && data.data) {
+          data = data.data; // Assign new value to 'data'
+        } else {
+          console.error("No data received from the API");
         }
+        setDestination(data);
+        console.log(destination);
+        console.log("Fetched from API for", name);
+      } catch (error) {
+        console.error("Error fetching destination:", error);
       }
     };
 
@@ -46,7 +38,7 @@ const DestinationPage = () => {
   if (!destination) return <p>Loading...</p>;
 
   return (
-    <>
+    <div className=" text-black">
       <DestHero
         img={destination.imgSrc}
         title={destination.title}
@@ -60,7 +52,7 @@ const DestinationPage = () => {
         subTitle="Explore nearby attractions"
       />
       <Stay hotels={destination.stays} />
-    </>
+    </div>
   );
 };
 

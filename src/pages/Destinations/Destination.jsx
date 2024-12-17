@@ -5,8 +5,8 @@ import axios from "axios";
 import { About, DestHero, Gallery, ListCards, Stay } from "../../components";
 
 const DestinationPage = () => {
-  const { destinationName } = useParams();
-  const name = destinationName; // Get destination name from the URL params
+  const { category, destinationName } = useParams(); // This will now correctly access both parameters
+  const name = destinationName; 
   const [destination, setDestination] = useState(null);
 
   useEffect(() => {
@@ -18,12 +18,12 @@ const DestinationPage = () => {
       } else {
         try {
           console.log("NO - cache");
+          console.log(name);
           const response = await axios.post(
             "http://localhost:5001/api/destinationPage/single-page",
             { name }
           );
 
-          // Axios automatically parses the response, so no need for response.json()
           const { data } = response;
 
           if (data && data.data) {

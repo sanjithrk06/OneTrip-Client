@@ -7,6 +7,8 @@ import {
 import { DashLayout, HomeLayout } from "../layouts";
 import {
   KindsDestination,
+  Destinations,
+  DestinationPage,
   HomePage,
   ADashboard,
   Login,
@@ -25,9 +27,13 @@ import {
   Package,
   PackageBooking,
   HiddenSpot,
+  // PaymentPage,
+  // SuccessPage,
+  // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
-import Destinations from "../pages/Destinations/Destinations";
+import { Descriptions } from "antd";
+// import Destinations from "../pages/Destinations/Destinations";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -113,7 +119,9 @@ const router = createBrowserRouter(
         <Route path="destinations">
           <Route index element={<KindsDestination />} />
           <Route path=":category" element={<Destinations />} />
+          <Route path=":category/:destinationName" element={<DestinationPage />} />
         </Route>
+
       </Route>
 
       <Route path="/dashboard/" element={<DashLayout />}>

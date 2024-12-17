@@ -135,7 +135,7 @@ const Categories = () => {
 
   const handleEdit = (record) => {
     setSelectedRecord(record);
-    setIsEditModalOpen(true);  // Open the Edit modal
+    setIsEditModalOpen(true);
     form.setFieldsValue({
       name: record.name,
       description: record.description,
@@ -159,30 +159,36 @@ const Categories = () => {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      // Check if selectedRecord exists and has _id
-      if (!selectedRecord || !selectedRecord._id) {
+  // Step 1: Set selectedRecord before opening delete modal
+  const handleDelete = (record) => {
+    setSelectedRecord(record);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedRecord || !selectedRecord._id) {
         message.error("Category not found");
-        return;
-      }
-  
-      // Perform the delete operation using the correct _id
+      return;
+    }
+
+    // Perform the delete operation using the correct _id
+    try{
       await axios.delete(`http://localhost:5001/api/category/${selectedRecord._id}`);
-  
-      // Refetch categories after delete
       await fetchCategories();
   
       // Close the modal and show success message
       setIsDeleteModalOpen(false);
       message.success("Category deleted successfully");
-    } catch (error) {
-      console.error("Delete error:", error);
-      message.error("Failed to delete category");
-    }
-  };
-  
-  
+    
+  } catch (error) {
+    console.error("Delete error:", error);
+    message.error("Failed to delete category");
+  }
+
+  // Close the modal after deletion
+  setIsDeleteModalOpen(false);
+};
+
 
   return (
     <div style={{ background: "#fff", padding: 24, borderRadius: 8 }}>
@@ -305,15 +311,12 @@ const Categories = () => {
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             label="Description"
             name="description"
-            rules={[{ required: true, message: "Please input the category description!" }]}
           >
             <Input.TextArea rows={4} />
           </Form.Item>
-
           <Form.Item
             label="Destinations"
             name="destinations"
@@ -321,19 +324,36 @@ const Categories = () => {
           >
             <Select
               mode="multiple"
-              options={destinations.map((dest) => ({
-                label: dest.name,
-                value: dest._id,
-              }))}
+              allowClear
               placeholder="Select destinations"
+              options={destinations.map((destination) => ({
+                value: destination._id,
+                label: destination.name,
+              }))}
+              defaultValue={selectedRecord?.destinations.map(
+                (destination) => destination._id
+              )}
             />
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* Delete Category Modal */}
+      <Modal
+        title="Are you sure you want to delete this category?"
+        visible={isDeleteModalOpen}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        onOk={handleDeleteConfirm}
+        okText="Delete"
+        cancelText="Cancel"
+        centered
+      >
+        <p>Deleting this category will remove it permanently. Are you sure?</p>
+      </Modal>
     </div>
   );
-};
+
+}
+
 
 export default Categories;
- 
-

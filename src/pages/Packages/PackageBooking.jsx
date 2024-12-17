@@ -49,7 +49,7 @@ const PackageBooking = () => {
     if (pkg.price) {
       const adultPrice = adults * pkg.price;
       const childPrice = children * (pkg.price / 2);
-      setTotalPrice(1);
+      setTotalPrice(adultPrice + childPrice);
     }
   }, [adults, children, pkg.price]);
 
@@ -63,80 +63,6 @@ const PackageBooking = () => {
     setChildren(numChildren);
   };
 
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
-  const handlePayment = async () => {
-    const isScriptLoaded = await loadRazorpayScript();
-
-    if (!isScriptLoaded) {
-      alert("Failed to load payment gateway. Please try again later.");
-      return;
-    }
-
-    console.log("Razorpay Key ID:", "rzp_test_A1vlkDYDikee4Y");
-
-    try {
-      const orderResponse = await axios.post(
-        "http://localhost:5001/api/payment/createPackage",
-        {
-          amount: totalPrice, // Convert to paise
-        }
-      );
-
-      const { id: orderId, currency } = orderResponse.data;
-
-      const options = {
-        key: "rzp_test_A1vlkDYDikee4Y", // Replace with your Razorpay Key ID
-        amount: totalPrice,
-        currency,
-        name: "One Trip",
-        description: "Package Booking Payment",
-        order_id: orderId,
-        method: "upi", // Add this line to force UPI method
-        handler: async function (response) {
-          try {
-            const verifyResponse = await axios.post(
-              "http://localhost:5001/api/payment/verifyPayment",
-              {
-                orderId,
-                paymentId: response.razorpay_payment_id,
-                signature: response.razorpay_signature,
-              }
-            );
-
-            alert("Payment successful! Booking confirmed.");
-          } catch (err) {
-            alert("Payment verification failed. Please contact support.");
-          }
-        },
-        prefill: {
-          name: "Sanjith",
-          email: "sanjithkarthi2004@gmail.com",
-          contact: "9944235449",
-        },
-        notes: {
-          address: "One Trip Corporate Office",
-        },
-        theme: {
-          color: "#F37254",
-        },
-      };
-
-      const paymentObject = new window.Razorpay(options);
-      paymentObject.open();
-    } catch (error) {
-      alert("Failed to initiate payment. Please try again later.");
-    }
-  };
-
   return (
     <div className="bg-whiteDim text-slate-900">
       <div
@@ -148,6 +74,19 @@ const PackageBooking = () => {
             <section className="w-full max-w-5xl py-2">
               <header className="mb-6 text-center">
                 <h1 className="mb-1 inline-flex items-center gap-1 text-lg font-bold">
+                  <svg
+                    className="hi-mini hi-cube-transparent inline-block size-4 text-primary"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.638 1.093a.75.75 0 01.724 0l2 1.104a.75.75 0 11-.724 1.313L10 2.607l-1.638.903a.75.75 0 11-.724-1.313l2-1.104zM5.403 4.287a.75.75 0 01-.295 1.019l-.805.444.805.444a.75.75 0 01-.724 1.314L3.5 7.02v.73a.75.75 0 01-1.5 0v-2a.75.75 0 01.388-.657l1.996-1.1a.75.75 0 011.019.294zm9.194 0a.75.75 0 011.02-.295l1.995 1.101A.75.75 0 0118 5.75v2a.75.75 0 01-1.5 0v-.73l-.884.488a.75.75 0 11-.724-1.314l.806-.444-.806-.444a.75.75 0 01-.295-1.02zM7.343 8.284a.75.75 0 011.02-.294L10 8.893l1.638-.903a.75.75 0 11.724 1.313l-1.612.89v1.557a.75.75 0 01-1.5 0v-1.557l-1.612-.89a.75.75 0 01-.295-1.019zM2.75 11.5a.75.75 0 01.75.75v1.557l1.608.887a.75.75 0 01-.724 1.314l-1.996-1.101A.75.75 0 012 14.25v-2a.75.75 0 01.75-.75zm14.5 0a.75.75 0 01.75.75v2a.75.75 0 01-.388.657l-1.996 1.1a.75.75 0 11-.724-1.313l1.608-.887V12.25a.75.75 0 01.75-.75zm-7.25 4a.75.75 0 01.75.75v.73l.888-.49a.75.75 0 01.724 1.313l-2 1.104a.75.75 0 01-.724 0l-2-1.104a.75.75 0 11.724-1.313l.888.49v-.73a.75.75 0 01.75-.75z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                   <span>One Trip</span>
                 </h1>
                 <h2 className=" text-xs font-medium text-slate-600">
@@ -156,6 +95,7 @@ const PackageBooking = () => {
               </header>
 
               <div className="w-full bg-white rounded-lg shadow-lg p-6 flex flex-col lg:flex-row gap-8">
+                {/* Package Details Section */}
                 <div className="w-full lg:w-1/2">
                   <h1 className="text-xl font-bold">
                     {pkg.name || "Loading..."}
@@ -175,12 +115,14 @@ const PackageBooking = () => {
                   </div>
                 </div>
 
+                {/* Booking Form Section */}
                 <div className="w-full lg:w-1/2">
                   <h1 className="text-2xl text-center text-primary font-bold mb-4">
                     Book Now
                   </h1>
                   <form className="space-y-4">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      {/* Name */}
                       <div>
                         <label
                           htmlFor="name"
@@ -196,6 +138,7 @@ const PackageBooking = () => {
                           className="block w-full outline-none bg-white rounded-lg border px-4 py-2 text-slate-700 placeholder-gray-400 focus:ring-2 focus:ring-primary border-gray-200"
                         />
                       </div>
+                      {/* Phone Number */}
                       <div>
                         <label
                           htmlFor="phone"
@@ -212,6 +155,7 @@ const PackageBooking = () => {
                         />
                       </div>
                     </div>
+                    {/* Email */}
                     <div>
                       <label
                         htmlFor="email"
@@ -227,6 +171,7 @@ const PackageBooking = () => {
                         className="block w-full outline-none bg-white rounded-lg border px-4 py-2 text-slate-700 placeholder-gray-400 focus:ring-2 focus:ring-primary border-gray-200"
                       />
                     </div>
+                    {/* Destination & Departure Date */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div>
                         <label
@@ -258,6 +203,7 @@ const PackageBooking = () => {
                         />
                       </div>
                     </div>
+                    {/* Adults & Children */}
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div>
                         <label
@@ -324,7 +270,6 @@ const PackageBooking = () => {
                     {/* Proceed to Pay */}
                     <button
                       type="button"
-                      onClick={handlePayment}
                       className="w-full bg-primary text-white py-2 px-4 rounded-lg text-lg font-semibold hover:bg-primary/80"
                     >
                       Proceed to Pay

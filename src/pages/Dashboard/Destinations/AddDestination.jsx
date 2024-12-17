@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -9,6 +9,7 @@ import {
   Row,
   Col,
   message,
+  Select,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
@@ -21,34 +22,63 @@ const AddDestination = () => {
   const [form] = Form.useForm();
   const [galleryImages, setGalleryImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileList, setFileList] = useState([]);
+
+  const [categories, setCategories] = useState([]); // State for categories
+  const [loadingCategories, setLoadingCategories] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const response = await axios.get("http://localhost:5001/api/category/");
+        setCategories(
+          Array.isArray(response.data.data) ? response.data.data : []
+        );
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        message.error("Failed to load categories.");
+        setCategories([]); // Ensure categories remains an array
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (values) => {
     try {
-      // Preparing the data to be sent as JSON
-      const requestData = {
-        name: values.destinationId,
-        title: values.title,
-        subTitle: values.subTitle || "", // Optional field
-        about: values.about,
-        coverPicture:
-          values.coverPicture && values.coverPicture[0]?.originFileObj,
-        gallery: galleryImages.map((file) => file.originFileObj),
-        stays: values.stays || [],
-        spots: values.spots || [],
-      };
+      const formData = new FormData();
 
-      // Logging requestData for debugging
-      console.log("Request Data:", requestData);
+      // Append form fields to FormData
+      formData.append("name", values.destinationId);
+      formData.append("title", values.title);
+      formData.append("subTitle", values.subTitle || "");
+      formData.append("about", values.about);
+      formData.append("stays", JSON.stringify(values.stays || []));
+      formData.append("spots", JSON.stringify(values.spots || []));
+      formData.append("categoryId", values.categoryId);
+
+      // Append cover image if selected
+      if (fileList.length > 0) {
+        formData.append("image", fileList[0].originFileObj); // Match the field name here
+      }
+
+      // Append all gallery images under the same field name
+      galleryImages.forEach((file) => {
+        formData.append("gallery", file.originFileObj); // Match the field name here (no index)
+      });
 
       setIsSubmitting(true);
 
-      // API Request
+      // Make API request with FormData
       const response = await axios.post(
         "http://localhost:5001/api/destinationPage/create",
-        requestData, // Send the data as JSON
+        formData,
         {
           headers: {
-            "Content-Type": "application/json", // Sending JSON
+            "Content-Type": "multipart/form-data", // Correct header for file uploads
           },
         }
       );
@@ -61,6 +91,11 @@ const AddDestination = () => {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleFileChange = ({ fileList }) => {
+    const latestFileList = fileList.slice(-1);
+    setFileList(latestFileList);
   };
 
   const handleGalleryChange = ({ fileList }) => {
@@ -137,12 +172,37 @@ const AddDestination = () => {
                     />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col span={16}>
                   <Form.Item label="Subtitle" name="subTitle">
                     <Input
                       className="font-normal"
                       placeholder="Destination Sub-Title"
                     />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item
+                    label="Category"
+                    name="categoryId"
+                    rules={[
+                      { required: true, message: "Please select a category!" },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Select a category"
+                      loading={loadingCategories}
+                      allowClear
+                    >
+                      {Array.isArray(categories) &&
+                        categories.map((category) => (
+                          <Select.Option
+                            key={category._id}
+                            value={category._id}
+                          >
+                            {category.name}
+                          </Select.Option>
+                        ))}
+                    </Select>
                   </Form.Item>
                 </Col>
                 <Col span={24}>
@@ -179,20 +239,21 @@ const AddDestination = () => {
                 label="Cover Picture"
                 name="coverPicture"
                 valuePropName="fileList"
-                getValueFromEvent={(e) => (Array.isArray(e) ? e : e?.fileList)}
+                getValueFromEvent={(e) => e.fileList}
               >
                 <Upload
                   listType="picture-card"
                   maxCount={1}
                   beforeUpload={() => false}
+                  fileList={fileList}
+                  onChange={handleFileChange}
                 >
-                  <button
-                    style={{ border: 0, background: "none" }}
-                    type="button"
-                  >
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </button>
+                  {fileList.length === 0 && (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
                 </Upload>
               </Form.Item>
 

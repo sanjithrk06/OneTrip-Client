@@ -74,11 +74,11 @@ const Destinations = () => {
     },
     {
       title: "Image",
-      dataIndex: "imgSrc",
-      key: "imgSrc",
-      render: (imgSrc) => (
+      dataIndex: "image",
+      key: "image",
+      render: (image) => (
         <Image
-          src={imgSrc}
+          src={image}
           alt="destination"
           width={50}
           height={50}
@@ -237,7 +237,7 @@ const Destinations = () => {
               </div>
               <div>
                 <Image
-                  src={selectedRecord.imgSrc}
+                  src={selectedRecord.image}
                   alt={selectedRecord.name}
                   style={{
                     width: "100%",

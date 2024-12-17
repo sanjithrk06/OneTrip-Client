@@ -5,7 +5,7 @@ import axios from "axios";
 import { About, DestHero, Gallery, ListCards, Stay } from "../../components";
 
 const DestinationPage = () => {
-  const { category, destinationName } = useParams(); // This will now correctly access both parameters
+  const { category, destinationName } = useParams();
   const name = destinationName;
   const [destination, setDestination] = useState(null);
 
@@ -17,16 +17,15 @@ const DestinationPage = () => {
           "http://localhost:5001/api/destinationPage/single-page",
           { name }
         );
-        let { data } = response; // Declare data with 'let' so it can be reassigned
+        let { data } = response;
 
         if (data && data.data) {
-          data = data.data; // Assign new value to 'data'
+          data = data.data; 
         } else {
           console.error("No data received from the API");
         }
         setDestination(data);
-        console.log(destination);
-        console.log("Fetched from API for", name);
+        console.log(data)
       } catch (error) {
         console.error("Error fetching destination:", error);
       }
@@ -40,7 +39,7 @@ const DestinationPage = () => {
   return (
     <div className=" text-black">
       <DestHero
-        img={destination.imgSrc}
+        img={destination.image}
         title={destination.title}
         subTitle={destination.subTitle}
       />

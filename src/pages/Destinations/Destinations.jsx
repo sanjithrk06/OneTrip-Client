@@ -63,8 +63,8 @@ const Destinations = () => {
             categoryData.destinations.map((destination, index) => (
               <DestinationsCard
                 key={index}
-                image={destination.imgSrc}
-                title={destination.name}
+                image={destination.image}
+                title={destination.title}
                 route={`/destinations/${category}/${destination.name}`}
               />
             ))

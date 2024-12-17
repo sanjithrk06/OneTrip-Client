@@ -1,7 +1,31 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DestinationsCard = ({ image, title, location, route }) => {
   const navigate = useNavigate();
+  const [imgSrc, setImageSrc] = useState(null);
+
+  useEffect(() => {
+    if (image) {
+      // Make a POST request to fetch the signed URL for the image using Axios
+      const fetchImageURL = async () => {
+        try {
+          const response = await axios.post('http://localhost:5001/api/image/getImageURL', {
+            imgName: image,
+          });
+          const { imageUrl } = response.data;
+          setImageSrc(imageUrl);
+          console.log("Fetched Image URL: ", imageUrl);
+          // You can now use this URL for the image or any other purposes.
+        } catch (error) {
+          console.error("Error fetching image URL:", error.response || error);
+        }
+      };
+
+      fetchImageURL();
+    }
+  }, [image]);
 
   const handleCardClick = () => {
     navigate(route);
@@ -16,7 +40,7 @@ const DestinationsCard = ({ image, title, location, route }) => {
         <div className="overflow-hidden rounded-lg">
           <img
             className="w-full cursor-pointer transition duration-200 ease-in-out transform hover:scale-110 rounded-xl h-48 object-cover"
-            src={image}
+            src={imgSrc}
             alt={title}
           />
         </div>

@@ -51,6 +51,7 @@ const AddPackage = () => {
         formData.append("image", fileList[0].originFileObj);
       }
 
+      console.log(formData);
       const response = await axios.post(
         "http://localhost:5001/api/package/",
         formData,

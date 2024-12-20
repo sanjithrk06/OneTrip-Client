@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 const Package = () => {
@@ -158,7 +158,7 @@ const Package = () => {
       </div>
 
       {/* Right Section */}
-      <div className="w-full md:w-[25vw]">
+      <div className="w-full md:w-[25vw] right-section">
         <div className="bg-gray-200 m-2 p-4 md:mt-12 text-slate-800 text-center">
           <h1 className="font-medium text-lg">Stay connected</h1>
           <div className="flex flex-col justify-center pt-6 p-2">
@@ -175,9 +175,12 @@ const Package = () => {
             </div>
           </div>
 
-          <button className=" flex flex-row bg-primary/90 hover:bg-primary text-whiteDim justify-center w-full px-4 py-1 mt-4 gap-1">
+          <Link
+            to={`/package/booking/${packageId}`}
+            className=" flex flex-row bg-primary/90 hover:bg-primary text-whiteDim justify-center w-full px-4 py-1 mt-4 gap-1"
+          >
             Book Now
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import {
 import { DashLayout, HomeLayout } from "../layouts";
 import {
   KindsDestination,
+  Destinations,
+  DestinationPage,
   HomePage,
   ADashboard,
   Login,
@@ -20,13 +22,18 @@ import {
   Packages,
   APackages,
   AAddPackage,
+  ACategory,
+  AAddCategory,
   Package,
+  PackageBooking,
+  HiddenSpot,
   // PaymentPage,
   // SuccessPage,
   // CancelPage
 } from "../pages";
 import { useAuthStore } from "../store/authStore";
-import Destinations from "../pages/Destinations/Destinations";
+import { Descriptions } from "antd";
+// import Destinations from "../pages/Destinations/Destinations";
 
 // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -94,41 +101,39 @@ const router = createBrowserRouter(
         />
       </Route>
 
+      <Route path="/package/booking/:packageId" element={<PackageBooking />} />
+
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
-        {/* <Route
+        <Route
           path="hiddenSpot"
           element={
             <ProtectedRoute>
               <HiddenSpot />
             </ProtectedRoute>
           }
-        /> */}
+        />
         <Route path="packages" element={<Packages />} />
         <Route path="package/:packageId" element={<Package />} />
         {/* Destinations Path */}
         <Route path="destinations">
           <Route index element={<KindsDestination />} />
           <Route path=":category" element={<Destinations />} />
-          {/* <Route path=":category" element={<ListOfDest />} />
-          <Route path=":category/:destinationName" element={<Destination />} /> */}
+          <Route path=":category/:destinationName" element={<DestinationPage />} />
         </Route>
+
       </Route>
 
       <Route path="/dashboard/" element={<DashLayout />}>
         <Route path="" element={<ADashboard />} />
         <Route path="destinations" element={<ADestinations />} />
         <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="category" element={<ACategory />} />
+        <Route path="addcategory" element={<AAddCategory />} />
         <Route path="packages" element={<APackages />} />
         <Route path="addPackage" element={<AAddPackage />} />
         <Route path="requests" element={<ARequestList />} />
       </Route>
-
-      {/* Payment  route*/}
-      {/* <Route path="/payment" element={<PaymentPage/>}>
-        <Route path="/success" element={<SuccessPage />} />
-        <Route path="/cancel" element={<CancelPage />} />
-      </Route> */}
     </>
   ),
   {

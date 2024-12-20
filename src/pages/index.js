@@ -11,12 +11,15 @@ export { default as HomePage } from "./HomePage";
 // Destinations
 // export { default as ListOfDest } from "./DestinationsPages/ListOfDest";
 // export { default as Destination } from "./DestinationsPages/Destination";
-// export { default as HiddenSpot } from "./DestinationsPages/HiddenSpot";
+export { default as HiddenSpot } from "./HiddenSpot";
 export { default as KindsDestination } from "./Destinations/KindsDestionation";
+export { default as Destinations } from "./Destinations/Destinations";
+export { default as DestinationPage } from "./Destinations/Destination";
 
 // Packages
 export { default as Packages } from "./Packages/Packages";
 export { default as Package } from "./Packages/Package";
+export { default as PackageBooking } from "./Packages/PackageBooking";
 
 // Dashboard
 export { default as ADashboard } from "./Dashboard/Home";
@@ -25,6 +28,8 @@ export { default as AAddDestination } from "./Dashboard/Destinations/AddDestinat
 export { default as APackages } from "./Dashboard/Packages/Packages";
 export { default as AAddPackage } from "./Dashboard/Packages/AddPackage";
 export { default as ARequestList } from "./Dashboard/Request/RequestList";
+export { default as ACategory } from "./Dashboard/Categories/Categories"
+export { default as AAddCategory } from "./Dashboard/Categories/AddCategories"
 
 // Payment
 // export { default as PaymentPage } from "./Payment/PaymentPage.jsx"

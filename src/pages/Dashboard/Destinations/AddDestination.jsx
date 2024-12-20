@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -9,6 +9,7 @@ import {
   Row,
   Col,
   message,
+  Select,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
@@ -21,26 +22,65 @@ const AddDestination = () => {
   const [form] = Form.useForm();
   const [galleryImages, setGalleryImages] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fileList, setFileList] = useState([]);
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) return e;
-    return e?.fileList;
-  };
+  const [categories, setCategories] = useState([]); // State for categories
+  const [loadingCategories, setLoadingCategories] = useState(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoadingCategories(true);
+        const response = await axios.get("http://localhost:5001/api/category/");
+        setCategories(
+          Array.isArray(response.data.data) ? response.data.data : []
+        );
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        message.error("Failed to load categories.");
+        setCategories([]); // Ensure categories remains an array
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSubmit = async (values) => {
     try {
+      const formData = new FormData();
+
+      // Append form fields to FormData
+      formData.append("name", values.destinationId);
+      formData.append("title", values.title);
+      formData.append("subTitle", values.subTitle || "");
+      formData.append("about", values.about);
+      formData.append("stays", JSON.stringify(values.stays || []));
+      formData.append("spots", JSON.stringify(values.spots || []));
+      formData.append("categoryId", values.categoryId);
+
+      // Append cover image if selected
+      if (fileList.length > 0) {
+        formData.append("image", fileList[0].originFileObj); // Match the field name here
+      }
+
+      // Append all gallery images under the same field name
+      galleryImages.forEach((file) => {
+        formData.append("gallery", file.originFileObj); // Match the field name here (no index)
+      });
+
       setIsSubmitting(true);
 
-      const payload = {
-        name: values.destinationId,
-        title: values.title,
-        subTitle: values.subTitle,
-        about: values.about,
-      };
-
+      // Make API request with FormData
       const response = await axios.post(
         "http://localhost:5001/api/destinationPage/create",
-        payload
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Correct header for file uploads
+          },
+        }
       );
 
       message.success("Destination created successfully!");
@@ -53,12 +93,17 @@ const AddDestination = () => {
     }
   };
 
+  const handleFileChange = ({ fileList }) => {
+    const latestFileList = fileList.slice(-1);
+    setFileList(latestFileList);
+  };
+
   const handleGalleryChange = ({ fileList }) => {
     setGalleryImages(fileList);
   };
 
   return (
-    <div style={{ padding: "0px" }} className=" text-slate-900 font-medium">
+    <div style={{ padding: "0px" }} className="text-slate-900 font-medium">
       <div
         style={{
           marginBottom: "20px",
@@ -66,9 +111,9 @@ const AddDestination = () => {
           justifyContent: "space-between",
         }}
       >
-        <div className=" flex flex-col px-2">
+        <div className="flex flex-col px-2">
           <h1 className="font-bold text-2xl text-gray-800">Add Destination</h1>
-          <p className=" font-medium text-gray-500">
+          <p className="font-medium text-gray-500">
             Add exciting new places to explore.
           </p>
         </div>
@@ -89,7 +134,6 @@ const AddDestination = () => {
       </div>
 
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
-        {/* Left Side - ID, Title, Subtitle */}
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={15}>
             <div
@@ -111,7 +155,7 @@ const AddDestination = () => {
                       },
                     ]}
                   >
-                    <Input className=" font-normal" placeholder="D001" />
+                    <Input className="font-normal" placeholder="D001" />
                   </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -123,17 +167,42 @@ const AddDestination = () => {
                     ]}
                   >
                     <Input
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="Destination Title"
                     />
                   </Form.Item>
                 </Col>
-                <Col span={24}>
+                <Col span={16}>
                   <Form.Item label="Subtitle" name="subTitle">
                     <Input
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="Destination Sub-Title"
                     />
+                  </Form.Item>
+                </Col>
+                <Col span={8}>
+                  <Form.Item
+                    label="Category"
+                    name="categoryId"
+                    rules={[
+                      { required: true, message: "Please select a category!" },
+                    ]}
+                  >
+                    <Select
+                      placeholder="Select a category"
+                      loading={loadingCategories}
+                      allowClear
+                    >
+                      {Array.isArray(categories) &&
+                        categories.map((category) => (
+                          <Select.Option
+                            key={category._id}
+                            value={category._id}
+                          >
+                            {category.name}
+                          </Select.Option>
+                        ))}
+                    </Select>
                   </Form.Item>
                 </Col>
                 <Col span={24}>
@@ -148,7 +217,7 @@ const AddDestination = () => {
                     ]}
                   >
                     <TextArea
-                      className=" font-normal"
+                      className="font-normal"
                       placeholder="About the Destination"
                       rows={8}
                     />
@@ -158,7 +227,6 @@ const AddDestination = () => {
             </div>
           </Col>
 
-          {/* Right Side - Cover Picture and Gallery */}
           <Col xs={24} sm={9}>
             <div
               style={{
@@ -171,26 +239,25 @@ const AddDestination = () => {
                 label="Cover Picture"
                 name="coverPicture"
                 valuePropName="fileList"
-                getValueFromEvent={normFile}
-                style={{ width: "100%" }}
+                getValueFromEvent={(e) => e.fileList}
               >
                 <Upload
-                  action="/upload.do"
                   listType="picture-card"
                   maxCount={1}
-                  style={{ width: "100%" }}
+                  beforeUpload={() => false}
+                  fileList={fileList}
+                  onChange={handleFileChange}
                 >
-                  <button
-                    style={{ border: 0, background: "none" }}
-                    type="button"
-                  >
-                    <PlusOutlined />
-                    <div style={{ marginTop: 8 }}>Upload</div>
-                  </button>
+                  {fileList.length === 0 && (
+                    <div>
+                      <PlusOutlined />
+                      <div style={{ marginTop: 8 }}>Upload</div>
+                    </div>
+                  )}
                 </Upload>
               </Form.Item>
 
-              <Form.Item label="Gallery Images">
+              <Form.Item label="Gallery Images" name="gallery">
                 <Upload
                   listType="picture-card"
                   multiple
@@ -211,7 +278,6 @@ const AddDestination = () => {
           </Col>
         </Row>
 
-        {/* Stays Section */}
         <div
           style={{
             backgroundColor: "#fff",
@@ -277,7 +343,7 @@ const AddDestination = () => {
                             </Col>
                           </Row>
 
-                          <div className=" flex flex-row justify-between">
+                          <div className="flex flex-row justify-between">
                             <Form.Item
                               {...restField}
                               name={[name, "wifi"]}
@@ -310,7 +376,6 @@ const AddDestination = () => {
           </Form.Item>
         </div>
 
-        {/* Spots Section */}
         <div
           style={{
             backgroundColor: "#fff",

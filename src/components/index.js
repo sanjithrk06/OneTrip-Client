@@ -16,6 +16,6 @@ export { default as DestHero } from "./section/Destinations/Hero";
 export { default as About } from "./section/Destinations/About";
 export { default as Gallery } from "./section/Destinations/Gallery";
 export { default as Stay } from "./section/Destinations/Stay";
-
+export { default as ListCards } from "./section/ListCards";
 export { default as Card } from "./general/Cards";
 export { default as PackageCard } from "./general/PackageCard";

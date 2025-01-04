@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { GiPathDistance, GiSandsOfTime } from "react-icons/gi";
 import { IoFastFoodOutline } from "react-icons/io5";
+import { h1 } from "../../../assets";
 
 // Animation
 import "aos/dist/aos.css";
@@ -42,7 +43,7 @@ const Stay = ({ hotels }) => {
             >
               <img
                 className="w-full rounded-xl h-40 object-cover"
-                src={hotel.imgSrc}
+                src={h1}
                 alt={hotel.name}
               />
               <div className="pt-4 px-2">
@@ -66,18 +67,19 @@ const Stay = ({ hotels }) => {
                   </div>
                   <div className="flex items-center">
                     <FaWifi className="text-gray-600 mr-2" />
+                    {hotel.wifi ? "Free" : "No"}
                   </div>
                   <div className="flex items-center">
                     <FaUserFriends className="text-gray-600 mr-2" />
-                    <span>{hotel.capacity}</span>
+                    <span>{3}</span>
                   </div>
                   <div className="flex items-center">
                     <GiSandsOfTime className="text-gray-600 mr-2" />
-                    <span>{hotel.time}</span>
+                    <span>23 hrs</span>
                   </div>
                   <div className="flex items-center">
                     <IoFastFoodOutline className="text-gray-600 mr-2" />
-                    <span>{hotel.hours}</span>
+                    <span>Free</span>
                   </div>
                 </div>
                 <div className="flex flex-row gap-4 mb-4 text-black text-sm">

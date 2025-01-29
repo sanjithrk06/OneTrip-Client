@@ -16,7 +16,7 @@ const AddCategory = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/destinationPage/");
+        const response = await axios.get("https://onetrip-server.onrender.com/api/destinationPage/");
         console.log(response)
         setDestinations(response.data.data); // assuming the response contains an array of destinations
       } catch (err) {
@@ -44,7 +44,7 @@ const AddCategory = () => {
       };
 
       // Send the request to create a new category
-      const response = await axios.post("http://localhost:5001/api/category/create", payload);
+      const response = await axios.post("https://onetrip-server.onrender.com/api/category/create", payload);
       message.success("Category created successfully!");
       navigate("/dashboard/category");
     } catch (error) {

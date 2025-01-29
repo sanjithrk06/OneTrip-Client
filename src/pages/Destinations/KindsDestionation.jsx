@@ -13,7 +13,7 @@ const KindsDestination = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/category/");
+        const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
         if (response.data && response.data.data) {
           setCategories(response.data.data);
           console.log(response.data.data);

@@ -31,7 +31,7 @@ const AddDestination = () => {
     const fetchCategories = async () => {
       try {
         setLoadingCategories(true);
-        const response = await axios.get("http://localhost:5001/api/category/");
+        const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
         setCategories(
           Array.isArray(response.data.data) ? response.data.data : []
         );
@@ -74,7 +74,7 @@ const AddDestination = () => {
 
       // Make API request with FormData
       const response = await axios.post(
-        "http://localhost:5001/api/destinationPage/create",
+        "https://onetrip-server.onrender.com/api/destinationPage/create",
         formData,
         {
           headers: {

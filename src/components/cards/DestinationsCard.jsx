@@ -11,7 +11,7 @@ const DestinationsCard = ({ image, title, location, route }) => {
       // Make a POST request to fetch the signed URL for the image using Axios
       const fetchImageURL = async () => {
         try {
-          const response = await axios.post('http://localhost:5001/api/image/getImageURL', {
+          const response = await axios.post('https://onetrip-server.onrender.com/api/image/getImageURL', {
             imgName: image,
           });
           const { imageUrl } = response.data;

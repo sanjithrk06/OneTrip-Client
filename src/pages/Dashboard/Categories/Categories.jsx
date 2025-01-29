@@ -37,7 +37,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get("http://localhost:5001/api/destinationPage/");
+        const response = await axios.get("https://onetrip-server.onrender.com/api/destinationPage/");
         setDestinations(response.data.data);
       } catch (err) {
         console.error("Error fetching destinations:", err);
@@ -54,7 +54,7 @@ const Categories = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/category/");
+      const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
       const categoriesWithKeys = response.data.data.map((cat, index) => ({
         ...cat,
         key: cat._id,
@@ -145,7 +145,7 @@ const Categories = () => {
 
   const handleSaveEdit = async (values) => {
     try {
-      await axios.put(`http://localhost:5001/api/category/${selectedRecord._id}`, {
+      await axios.put(`https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`, {
         name: values.name,
         description: values.description,
         destinations: values.destinations,
@@ -173,7 +173,7 @@ const Categories = () => {
 
     // Perform the delete operation using the correct _id
     try{
-      await axios.delete(`http://localhost:5001/api/category/${selectedRecord._id}`);
+      await axios.delete(`https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`);
       await fetchCategories();
   
       // Close the modal and show success message

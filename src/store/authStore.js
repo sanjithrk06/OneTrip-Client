@@ -4,7 +4,7 @@ import { create } from "zustand";
 // axios components
 import axios from "axios";
 axios.defaults.withCredentials = true;
-const API_URL = "http://localhost:5001/api/auth";
+const API_URL = "https://onetrip-server.onrender.com/api/auth";
 
 export const useAuthStore = create((set) => ({
   user: null,

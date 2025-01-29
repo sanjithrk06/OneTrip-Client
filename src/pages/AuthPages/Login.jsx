@@ -43,7 +43,7 @@ const Login = () => {
     <div className="bg-whiteDim text-slate-900">
       <div
         id="page-container"
-        className="mx-auto flex min-h-dvh w-full min-w-[320px] flex-col bg-primary/10"
+        className="mx-auto flex min-h-dvh w-full min-w-[320px] flex-col bg-green-200/20"
       >
         <main id="page-content" className="flex max-w-full flex-auto flex-col">
           <div className="relative mx-auto flex min-h-dvh w-full max-w-10xl items-center justify-center overflow-hidden p-4 lg:p-8">

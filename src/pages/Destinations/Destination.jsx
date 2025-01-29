@@ -14,7 +14,7 @@ const DestinationPage = () => {
       try {
         console.log(name);
         const response = await axios.post(
-          "http://localhost:5001/api/destinationPage/single-page",
+          "https://onetrip-server.onrender.com/api/destinationPage/single-page",
           { name }
         );
         let { data } = response;

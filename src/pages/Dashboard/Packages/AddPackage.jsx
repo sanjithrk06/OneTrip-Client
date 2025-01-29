@@ -53,7 +53,7 @@ const AddPackage = () => {
 
       console.log(formData);
       const response = await axios.post(
-        "http://localhost:5001/api/package/",
+        "https://onetrip-server.onrender.com/api/package/",
         formData,
         {
           headers: {

@@ -22,7 +22,7 @@ const Packages = () => {
         try {
           console.log("Fetching data from API...");
           const response = await axios.get(
-            "http://localhost:5001/api/package/"
+            "https://onetrip-server.onrender.com/api/package/"
           );
 
           const data = response.data;

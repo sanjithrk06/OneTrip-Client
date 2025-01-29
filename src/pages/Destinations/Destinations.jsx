@@ -15,7 +15,7 @@ const Destinations = () => {
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/category/${category}`);
+        const response = await axios.get(`https://onetrip-server.onrender.com/api/category/${category}`);
         
         // Set the category data once fetched
         if (response.data && response.data.data) {

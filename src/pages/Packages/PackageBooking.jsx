@@ -23,7 +23,10 @@ const PackageBooking = () => {
         try {
           console.log("Fetching data from API...");
           const response = await axios.get(
-            `https://onetrip-server.onrender.com/api/package/${packageId}`
+            `https://onetrip-server.onrender.com/api/package/${packageId}`,
+            {
+              withCredentials: true,
+            }
           );
 
           const data = response.data;
@@ -88,6 +91,9 @@ const PackageBooking = () => {
         "https://onetrip-server.onrender.com/api/payment/createPackage",
         {
           amount: totalPrice, // Convert to paise
+        },
+        {
+          withCredentials: true,
         }
       );
 
@@ -109,6 +115,9 @@ const PackageBooking = () => {
                 orderId,
                 paymentId: response.razorpay_payment_id,
                 signature: response.razorpay_signature,
+              },
+              {
+                withCredentials: true,
               }
             );
 

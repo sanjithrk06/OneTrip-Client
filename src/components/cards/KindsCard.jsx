@@ -12,9 +12,15 @@ const KindsCard = ({ image, title, route }) => {
       // Make a POST request to fetch the signed URL for the image using Axios
       const fetchImageURL = async () => {
         try {
-          const response = await axios.post('https://onetrip-server.onrender.com/api/image/getImageURL', {
-            imgName: image,
-          });
+          const response = await axios.post(
+            "https://onetrip-server.onrender.com/api/image/getImageURL",
+            {
+              imgName: image,
+            },
+            {
+              withCredentials: true,
+            }
+          );
           const { imageUrl } = response.data;
           setImageSrc(imageUrl);
           console.log("Fetched Image URL: ", imageUrl);

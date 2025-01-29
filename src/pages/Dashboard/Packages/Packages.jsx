@@ -40,7 +40,12 @@ const Packages = () => {
 
   const fetchPackages = async () => {
     try {
-      const response = await axios.get("https://onetrip-server.onrender.com/api/package");
+      const response = await axios.get(
+        "https://onetrip-server.onrender.com/api/package",
+        {
+          withCredentials: true,
+        }
+      );
       const packagesWithKeys = response.data.map((pkg, index) => ({
         ...pkg,
         key: pkg._id,
@@ -140,7 +145,10 @@ const Packages = () => {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `https://onetrip-server.onrender.com/api/package/${selectedRecord._id}`
+        `https://onetrip-server.onrender.com/api/package/${selectedRecord._id}`,
+        {
+          withCredentials: true,
+        }
       );
       await fetchPackages();
       setIsDeleteModalOpen(false);

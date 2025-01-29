@@ -13,7 +13,12 @@ const KindsDestination = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
+        const response = await axios.get(
+          "https://onetrip-server.onrender.com/api/category/",
+          {
+            withCredentials: true,
+          }
+        );
         if (response.data && response.data.data) {
           setCategories(response.data.data);
           console.log(response.data.data);
@@ -51,9 +56,12 @@ const KindsDestination = () => {
 
       <div className="mx-2 px-6 md:px-28 py-20 bg-white">
         <div className="text-left">
-          <h2 className="text-3xl font-bold text-black">Kinds of Destinations</h2>
+          <h2 className="text-3xl font-bold text-black">
+            Kinds of Destinations
+          </h2>
           <p className="text-gray-600">
-            From historical cities to natural spectacles, come see the best of the world!
+            From historical cities to natural spectacles, come see the best of
+            the world!
           </p>
         </div>
 
@@ -67,10 +75,12 @@ const KindsDestination = () => {
                   <div
                     key={category._id}
                     className="cursor-pointer"
-                    onClick={() => handleCategoryClick(category.name.toLowerCase())} // Trigger navigate on click
+                    onClick={() =>
+                      handleCategoryClick(category.name.toLowerCase())
+                    } // Trigger navigate on click
                   >
                     <KindsCard
-                      image={firstDestination ? firstDestination.image : ''} // Display first destination image
+                      image={firstDestination ? firstDestination.image : ""} // Display first destination image
                       title={category.name}
                       route="#" // Temporary empty route
                     />
@@ -82,7 +92,9 @@ const KindsDestination = () => {
               return null;
             })
           ) : (
-            <p className="col-span-full text-center text-gray-500">No categories available.</p>
+            <p className="col-span-full text-center text-gray-500">
+              No categories available.
+            </p>
           )}
         </div>
       </div>

@@ -15,17 +15,20 @@ const DestinationPage = () => {
         console.log(name);
         const response = await axios.post(
           "https://onetrip-server.onrender.com/api/destinationPage/single-page",
-          { name }
+          { name },
+          {
+            withCredentials: true,
+          }
         );
         let { data } = response;
 
         if (data && data.data) {
-          data = data.data; 
+          data = data.data;
         } else {
           console.error("No data received from the API");
         }
         setDestination(data);
-        console.log(data)
+        console.log(data);
       } catch (error) {
         console.error("Error fetching destination:", error);
       }

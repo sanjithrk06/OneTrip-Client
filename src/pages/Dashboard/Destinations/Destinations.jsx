@@ -39,7 +39,10 @@ const Destinations = () => {
   const fetchDestinations = async () => {
     try {
       const response = await axios.get(
-        "https://onetrip-server.onrender.com/api/destinationPage/"
+        "https://onetrip-server.onrender.com/api/destinationPage/",
+        {
+          withCredentials: true,
+        }
       );
       // Add serial number to each destination
       const destinationsWithKeys = response.data.data.map((dest, index) => ({
@@ -143,7 +146,10 @@ const Destinations = () => {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `https://onetrip-server.onrender.com/api/destinationPage/${selectedRecord.name}`
+        `https://onetrip-server.onrender.com/api/destinationPage/${selectedRecord.name}`,
+        {
+          withCredentials: true,
+        }
       );
       await fetchDestinations();
       setIsDeleteModalOpen(false);

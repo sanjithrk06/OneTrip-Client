@@ -15,8 +15,13 @@ const Destinations = () => {
   useEffect(() => {
     const fetchCategoryData = async () => {
       try {
-        const response = await axios.get(`https://onetrip-server.onrender.com/api/category/${category}`);
-        
+        const response = await axios.get(
+          `https://onetrip-server.onrender.com/api/category/${category}`,
+          {
+            withCredentials: true,
+          }
+        );
+
         // Set the category data once fetched
         if (response.data && response.data.data) {
           setCategoryData(response.data.data);
@@ -40,7 +45,9 @@ const Destinations = () => {
   if (!categoryData) {
     return (
       <div className="mx-2 px-6 md:px-28 py-20 bg-white">
-        <p className="col-span-full text-center text-gray-500">No data found for this category.</p>
+        <p className="col-span-full text-center text-gray-500">
+          No data found for this category.
+        </p>
       </div>
     );
   }
@@ -48,8 +55,12 @@ const Destinations = () => {
   // Render the destinations once data is fetched
   return (
     <>
-      <HeroCard header={categoryData.name} desc={categoryData.description} img={munnar} />
-      
+      <HeroCard
+        header={categoryData.name}
+        desc={categoryData.description}
+        img={munnar}
+      />
+
       <div className="mx-2 px-6 md:px-28 py-20 bg-white">
         <div className="text-left">
           <h2 className="text-3xl font-bold text-black">{categoryData.name}</h2>

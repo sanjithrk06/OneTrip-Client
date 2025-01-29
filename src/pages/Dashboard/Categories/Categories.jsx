@@ -14,7 +14,12 @@ import {
   Row,
   Col,
 } from "antd";
-import { PlusOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  SearchOutlined,
+} from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -37,7 +42,12 @@ const Categories = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get("https://onetrip-server.onrender.com/api/destinationPage/");
+        const response = await axios.get(
+          "https://onetrip-server.onrender.com/api/destinationPage/",
+          {
+            withCredentials: true,
+          }
+        );
         setDestinations(response.data.data);
       } catch (err) {
         console.error("Error fetching destinations:", err);
@@ -54,7 +64,12 @@ const Categories = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
+      const response = await axios.get(
+        "https://onetrip-server.onrender.com/api/category/",
+        {
+          withCredentials: true,
+        }
+      );
       const categoriesWithKeys = response.data.data.map((cat, index) => ({
         ...cat,
         key: cat._id,
@@ -145,11 +160,17 @@ const Categories = () => {
 
   const handleSaveEdit = async (values) => {
     try {
-      await axios.put(`https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`, {
-        name: values.name,
-        description: values.description,
-        destinations: values.destinations,
-      });
+      await axios.put(
+        `https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`,
+        {
+          name: values.name,
+          description: values.description,
+          destinations: values.destinations,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       setIsEditModalOpen(false);
       fetchCategories();
       message.success("Category updated successfully");
@@ -167,28 +188,31 @@ const Categories = () => {
 
   const handleDeleteConfirm = async () => {
     if (!selectedRecord || !selectedRecord._id) {
-        message.error("Category not found");
+      message.error("Category not found");
       return;
     }
 
     // Perform the delete operation using the correct _id
-    try{
-      await axios.delete(`https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`);
+    try {
+      await axios.delete(
+        `https://onetrip-server.onrender.com/api/category/${selectedRecord._id}`,
+        {
+          withCredentials: true,
+        }
+      );
       await fetchCategories();
-  
+
       // Close the modal and show success message
       setIsDeleteModalOpen(false);
       message.success("Category deleted successfully");
-    
-  } catch (error) {
-    console.error("Delete error:", error);
-    message.error("Failed to delete category");
-  }
+    } catch (error) {
+      console.error("Delete error:", error);
+      message.error("Failed to delete category");
+    }
 
-  // Close the modal after deletion
-  setIsDeleteModalOpen(false);
-};
-
+    // Close the modal after deletion
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <div style={{ background: "#fff", padding: 24, borderRadius: 8 }}>
@@ -285,11 +309,7 @@ const Categories = () => {
           <Button key="cancel" onClick={() => setIsEditModalOpen(false)}>
             Cancel
           </Button>,
-          <Button
-            key="save"
-            type="primary"
-            onClick={() => form.submit()}
-          >
+          <Button key="save" type="primary" onClick={() => form.submit()}>
             Save
           </Button>,
         ]}
@@ -307,14 +327,13 @@ const Categories = () => {
           <Form.Item
             label="Category Name"
             name="name"
-            rules={[{ required: true, message: "Please input the category name!" }]}
+            rules={[
+              { required: true, message: "Please input the category name!" },
+            ]}
           >
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Description"
-            name="description"
-          >
+          <Form.Item label="Description" name="description">
             <Input.TextArea rows={4} />
           </Form.Item>
           <Form.Item
@@ -352,8 +371,6 @@ const Categories = () => {
       </Modal>
     </div>
   );
-
-}
-
+};
 
 export default Categories;

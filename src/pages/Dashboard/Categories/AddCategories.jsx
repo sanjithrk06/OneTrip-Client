@@ -16,8 +16,13 @@ const AddCategory = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const response = await axios.get("https://onetrip-server.onrender.com/api/destinationPage/");
-        console.log(response)
+        const response = await axios.get(
+          "https://onetrip-server.onrender.com/api/destinationPage/",
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response);
         setDestinations(response.data.data); // assuming the response contains an array of destinations
       } catch (err) {
         console.error("Error fetching destinations:", err);
@@ -44,7 +49,13 @@ const AddCategory = () => {
       };
 
       // Send the request to create a new category
-      const response = await axios.post("https://onetrip-server.onrender.com/api/category/create", payload);
+      const response = await axios.post(
+        "https://onetrip-server.onrender.com/api/category/create",
+        payload,
+        {
+          withCredentials: true,
+        }
+      );
       message.success("Category created successfully!");
       navigate("/dashboard/category");
     } catch (error) {
@@ -61,15 +72,25 @@ const AddCategory = () => {
 
   // Remove a selected destination from the selectedDestinations state
   const handleRemoveDestination = (destinationId) => {
-    setSelectedDestinations(selectedDestinations.filter(id => id !== destinationId));
+    setSelectedDestinations(
+      selectedDestinations.filter((id) => id !== destinationId)
+    );
   };
 
   return (
     <div style={{ padding: "0px" }}>
-      <div style={{ marginBottom: "20px", display: "flex", justifyContent: "space-between" }}>
+      <div
+        style={{
+          marginBottom: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <div>
           <h1 className="font-bold text-2xl text-gray-800">Add Category</h1>
-          <p className="font-medium text-gray-500">Add a new category to organize your destinations.</p>
+          <p className="font-medium text-gray-500">
+            Add a new category to organize your destinations.
+          </p>
         </div>
         <div className="flex gap-3">
           <Button size="medium" onClick={() => navigate(-1)}>
@@ -91,7 +112,9 @@ const AddCategory = () => {
         <Form.Item
           label="Category Name"
           name="name"
-          rules={[{ required: true, message: "Please input the category name!" }]}
+          rules={[
+            { required: true, message: "Please input the category name!" },
+          ]}
         >
           <Input placeholder="Category Name" />
         </Form.Item>
@@ -117,7 +140,11 @@ const AddCategory = () => {
                     <img
                       src={destination.imgSrc}
                       alt={destination.name}
-                      style={{ width: "50px", height: "50px", objectFit: "cover" }}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        objectFit: "cover",
+                      }}
                     />
                     {destination.name}
                   </Col>
@@ -131,7 +158,9 @@ const AddCategory = () => {
           <h4>Selected Destinations</h4>
           <Row gutter={8}>
             {selectedDestinations.map((destinationId) => {
-              const destination = destinations.find((dest) => dest._id === destinationId);
+              const destination = destinations.find(
+                (dest) => dest._id === destinationId
+              );
               return destination ? (
                 <Col key={destinationId} span={8}>
                   <div
@@ -149,7 +178,12 @@ const AddCategory = () => {
                       <img
                         src={destination.imgSrc}
                         alt={destination.name}
-                        style={{ width: "30px", height: "30px", objectFit: "cover", marginRight: "8px" }}
+                        style={{
+                          width: "30px",
+                          height: "30px",
+                          objectFit: "cover",
+                          marginRight: "8px",
+                        }}
                       />
                       <span>{destination.name}</span>
                     </div>
@@ -167,7 +201,9 @@ const AddCategory = () => {
           </Row>
         </div>
 
-        {error && <div style={{ color: "red", marginTop: "10px" }}>{error}</div>}
+        {error && (
+          <div style={{ color: "red", marginTop: "10px" }}>{error}</div>
+        )}
 
         <Button type="primary" htmlType="submit" loading={isSubmitting}>
           Create Category

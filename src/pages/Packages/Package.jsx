@@ -24,7 +24,10 @@ const Package = () => {
     const fetchPackageData = async () => {
       try {
         const response = await axios.get(
-          `https://onetrip-server.onrender.com/api/package/${packageId}`
+          `https://onetrip-server.onrender.com/api/package/${packageId}`,
+          {
+            withCredentials: true,
+          }
         );
         setPackageData(response.data);
       } catch (error) {

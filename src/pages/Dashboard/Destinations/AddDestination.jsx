@@ -31,7 +31,12 @@ const AddDestination = () => {
     const fetchCategories = async () => {
       try {
         setLoadingCategories(true);
-        const response = await axios.get("https://onetrip-server.onrender.com/api/category/");
+        const response = await axios.get(
+          "https://onetrip-server.onrender.com/api/category/",
+          {
+            withCredentials: true,
+          }
+        );
         setCategories(
           Array.isArray(response.data.data) ? response.data.data : []
         );
@@ -80,6 +85,9 @@ const AddDestination = () => {
           headers: {
             "Content-Type": "multipart/form-data", // Correct header for file uploads
           },
+        },
+        {
+          withCredentials: true,
         }
       );
 

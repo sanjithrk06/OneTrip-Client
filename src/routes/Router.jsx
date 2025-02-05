@@ -103,6 +103,17 @@ const router = createBrowserRouter(
 
       <Route path="/package/booking/:packageId" element={<PackageBooking />} />
 
+      <Route path="/dashboard/" element={<DashLayout />}>
+        <Route path="" element={<ADashboard />} />
+        <Route path="destinations" element={<ADestinations />} />
+        <Route path="addDestination" element={<AAddDestination />} />
+        <Route path="category" element={<ACategory />} />
+        <Route path="addcategory" element={<AAddCategory />} />
+        <Route path="packages" element={<APackages />} />
+        <Route path="addPackage" element={<AAddPackage />} />
+        <Route path="requests" element={<ARequestList />} />
+      </Route>
+
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
         <Route
@@ -119,20 +130,11 @@ const router = createBrowserRouter(
         <Route path="destinations">
           <Route index element={<KindsDestination />} />
           <Route path=":category" element={<Destinations />} />
-          <Route path=":category/:destinationName" element={<DestinationPage />} />
+          <Route
+            path=":category/:destinationName"
+            element={<DestinationPage />}
+          />
         </Route>
-
-      </Route>
-
-      <Route path="/dashboard/" element={<DashLayout />}>
-        <Route path="" element={<ADashboard />} />
-        <Route path="destinations" element={<ADestinations />} />
-        <Route path="addDestination" element={<AAddDestination />} />
-        <Route path="category" element={<ACategory />} />
-        <Route path="addcategory" element={<AAddCategory />} />
-        <Route path="packages" element={<APackages />} />
-        <Route path="addPackage" element={<AAddPackage />} />
-        <Route path="requests" element={<ARequestList />} />
       </Route>
     </>
   ),

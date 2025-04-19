@@ -43,7 +43,6 @@ In an era of digital transformation, tourism lacks a unified system for personal
 - **Frontend:** React JS, Tailwind CSS
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
-- **APIs:** Google Maps API, Booking APIs
 
 ---
 

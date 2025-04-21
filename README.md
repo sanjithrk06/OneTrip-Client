@@ -4,15 +4,6 @@ The **One Trip Platform** is a responsive web application that enhances the trav
 
 ---
 
-## Demo
-
-<img src='./src/assets/list.png' alt='Applicaiton Demo'>
-<img src='./src/assets/place.png' alt='Applicaiton Demo'>
-<img src='./src/assets/package.png' alt='Applicaiton Demo'>
-<img src='./src/assets/booking.png' alt='Applicaiton Demo'>
-
----
-
 ## Project Overview
 
 In an era of digital transformation, tourism lacks a unified system for personalized planning. The Smart Tourism Platform addresses this by combining AI, real-time data, and third-party APIs to create a comprehensive solution for tourists. The platform helps users discover hidden spots, customize travel packages, and make informed decisions based on reviews and recommendations.
@@ -53,5 +44,14 @@ In an era of digital transformation, tourism lacks a unified system for personal
 - **Chat with the Bot:** Interact with the AI-driven chatbot for assistance and recommendations.
 - **Discover Hidden Spots:** Find unique attractions based on your location and preferences.
 - **Engage with Local Businesses:** Explore and support local businesses featured on the platform.
+
+---
+
+## Demo
+
+<img src='./src/assets/list.png' alt='Applicaiton Demo'>
+<img src='./src/assets/place.png' alt='Applicaiton Demo'>
+<img src='./src/assets/package.png' alt='Applicaiton Demo'>
+<img src='./src/assets/booking.png' alt='Applicaiton Demo'>
 
 ---
